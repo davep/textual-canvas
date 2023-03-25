@@ -1,0 +1,8 @@
+[BASIC]
+good-names=x,y
+
+[FORMAT]
+max-line-length=120
+
+[MESSAGES CONTROL]
+disable=fixme
