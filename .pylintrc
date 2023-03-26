@@ -1,5 +1,6 @@
 [BASIC]
 good-names=x,y,n
+max-args=10
 
 [FORMAT]
 max-line-length=120
