@@ -121,6 +121,11 @@ class Canvas( ScrollView, can_focus=True ):
             A `Strip` that is the line to render.
         """
 
+        # TODO: Handle scroll offsets. At the moment I'm just messing with
+        # the basic idea, but I want this to be able to scroll in X and Y
+        # (it's not hard, of course, but I just don't want to complicate
+        # things at the moment).
+
         # We're going to be drawing two lines from the canvas in one line in
         # the display. Let's work out the first line first.
         top_line = y * 2
