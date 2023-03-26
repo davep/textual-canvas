@@ -41,6 +41,17 @@ class Canvas( ScrollView, can_focus=True ):
         classes: str | None = None,
         disabled: bool      = False
     ):
+        """Initialise the canvas.
+
+        Args:
+            width: The width of the canvas.
+            height: The height of the canvas.
+            color: An optional default colour for the canvas.
+            name: The name of the canvas widget.
+            id: The ID of the canvas widget in the DOM.
+            classes: The CSS classes of the canvas widget.
+            disabled: Whether the canvas widget is disabled or not.
+        """
         # Pass the normal Textual widget stuff up the chain.
         super().__init__( name=name, id=id, classes=classes, disabled=disabled )
 
