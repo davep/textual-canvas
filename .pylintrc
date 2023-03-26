@@ -1,5 +1,5 @@
 [BASIC]
-good-names=x,y
+good-names=x,y,n
 
 [FORMAT]
 max-line-length=120
