@@ -26,17 +26,22 @@ class CanvasTestApp( App[ None ] ):
 
     def on_mount( self ) -> None:
         """Set up the display once the DOM is available."""
+        canvas = self.query_one( Canvas )
         for column in range( 80 ):
-            self.query_one( Canvas ).set_pixel( 10 + column, 0, Color( 255, 0, 0 ) )
-            self.query_one( Canvas ).set_pixel( 10 + column, 1, Color( 0, 255, 0 ) )
-            self.query_one( Canvas ).set_pixel( 10 + column, 2, Color( 0, 0, 255 ) )
-            self.query_one( Canvas ).set_pixel( 10 + column, 3, Color( 128, 0, 0 ) )
-            self.query_one( Canvas ).set_pixel( 10 + column, 4, Color( 0, 128, 0 ) )
-            self.query_one( Canvas ).set_pixel( 10 + column, 5, Color( 0, 0, 128 ) )
+            canvas.set_pixel( 10 + column, 0, Color( 255, 0, 0 ) )
+            canvas.set_pixel( 10 + column, 1, Color( 0, 255, 0 ) )
+            canvas.set_pixel( 10 + column, 2, Color( 0, 0, 255 ) )
+            canvas.set_pixel( 10 + column, 3, Color( 128, 0, 0 ) )
+            canvas.set_pixel( 10 + column, 4, Color( 0, 128, 0 ) )
+            canvas.set_pixel( 10 + column, 5, Color( 0, 0, 128 ) )
 
-            self.query_one( Canvas ).set_pixel( 10 + column, 20, Color( 255, 0, 0 ) )
-            self.query_one( Canvas ).set_pixel( 10 + column, 21, Color( 0, 255, 0 ) )
-            self.query_one( Canvas ).set_pixel( 10 + column, 22, Color( 0, 0, 255 ) )
+            canvas.set_pixel( 10 + column, 20, Color( 255, 0, 0 ) )
+            canvas.set_pixel( 10 + column, 21, Color( 0, 255, 0 ) )
+            canvas.set_pixel( 10 + column, 22, Color( 0, 0, 255 ) )
+
+        for n in range( 20 ):
+            canvas.set_pixel( 30 + n, 30 + n, Color( 128, 0, 255 ) )
+            canvas.set_pixel( 30 - n, 30 + n, Color( 128, 0, 255 ) )
 
 if __name__ == "__main__":
     CanvasTestApp().run()
