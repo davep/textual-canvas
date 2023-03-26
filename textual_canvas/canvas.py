@@ -95,6 +95,18 @@ class Canvas( ScrollView, can_focus=True ):
         self._canvas[ y ][ x ] = color
         self.refresh()
 
+    def get_pixel( self, x: int, y: int ) -> Color:
+        """Get the pixel at the given location.
+
+        Args:
+            x: The horizontal location of the pixel.
+            y: The vertical location of the pixel.
+
+        Returns:
+            The colour of the pixel at that location.
+        """
+        return self._canvas[ y ][ x ]
+
     _CELL = "\u2584"
     """The character to use to draw two pixels in one cell in the canvas."""
 
