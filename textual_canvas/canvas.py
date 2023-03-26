@@ -35,6 +35,7 @@ class Canvas( ScrollView, can_focus=True ):
         self,
         width: int,
         height: int,
+        color: Color = Color( 0, 0, 0),
         name: str | None    = None,
         id: str | None      = None,
         classes: str | None = None,
@@ -49,12 +50,15 @@ class Canvas( ScrollView, can_focus=True ):
 
         # Generate the underlying "canvas" structure.
         self._canvas = [
-            [ Color( 0, 0, 0 ) for _ in range( width ) ] for _ in range( height )
+            [ color for _ in range( width ) ] for _ in range( height )
         ]
 
         # Used as a source of "there's nothing here" for the last row in a
         # canvas if we're likely to go off the end.
-        self._the_void = [ Color( 0, 0, 0 ) for _ in range( width ) ]
+        #
+        # TODO: Rather than use the default colour of the canvas, perhaps
+        # take the background color of the widget itself?
+        self._the_void = [ color for _ in range( width ) ]
 
     @property
     def width( self ) -> int:

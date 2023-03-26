@@ -22,7 +22,7 @@ class CanvasTestApp( App[ None ] ):
     """
 
     def compose( self ) -> ComposeResult:
-        yield Canvas( 100, 100 )
+        yield Canvas( 100, 100, Color( 30, 40, 50 ) )
 
     def on_mount( self ) -> None:
         """Set up the display once the DOM is available."""
