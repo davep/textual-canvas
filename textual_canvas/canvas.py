@@ -25,6 +25,8 @@ class Canvas( ScrollView, can_focus=True ):
     While not exactly square, this will make it more square than using a
     whole cell as a simple pixel.
 
+    The origin of the canvas is the top left corner.
+
     NOTE: At the moment this is coded in a very simple way, mainly to help
     decide on the API it will make available (which I intend to be as simple
     as possible). Little to no thought has been given to performance. First
