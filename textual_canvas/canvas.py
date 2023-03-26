@@ -37,7 +37,7 @@ class Canvas( ScrollView, can_focus=True ):
         height: int,
         color: Color = Color( 0, 0, 0),
         name: str | None    = None,
-        id: str | None      = None,
+        id: str | None      = None, # pylint:disable=redefined-builtin
         classes: str | None = None,
         disabled: bool      = False
     ):
