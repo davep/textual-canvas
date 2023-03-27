@@ -166,6 +166,6 @@ class Canvas( ScrollView, can_focus=True ):
         return Strip( [
             self._segment_of( top_pixels[ pixel ], bottom_pixels[ pixel ] )
             for pixel in range( self.width )
-        ] ).crop( scroll_x, scroll_x + self.scrollable_content_region.width )
+        ] ).crop( scroll_x, scroll_x + self.scrollable_content_region.width ).simplify()
 
 ### canvas.py ends here
