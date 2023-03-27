@@ -128,6 +128,10 @@ installed, run:
 $ python -m textual_canvas
 ```
 
+You should see something like this:
+
+![Demo code](https://raw.githubusercontent.com/davep/textual-canvas/main/img/textual-canvas.png)
+
 ## TODO
 
 Lots. Lots and lots. As mentioned above, there's little tinker project that
