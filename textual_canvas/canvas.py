@@ -175,7 +175,7 @@ class Canvas( ScrollView, can_focus=True ):
             color: The color to set the pixel to.
 
         Returns:
-            The colour of the pixel at that location.
+            The canvas.
 
         Raises:
             CanvasError: If the pixel location is not within the canvas.
@@ -221,6 +221,9 @@ class Canvas( ScrollView, can_focus=True ):
             width: The width of the rectangle.
             height: The height of the rectangle.
             color: The color to draw the rectangle in.
+
+        Returns:
+            The canvas.
 
         Raises:
             CanvasError: If any pixel location is not within the canvas.
