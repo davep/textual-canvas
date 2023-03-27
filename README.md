@@ -8,6 +8,9 @@ developed for a (also-being-worked-on-right-now) less general project, I'm
 making it available on the off-chance anyone else might want to play with it
 now.
 
+You might not want to rely on this just yet though; I'm still messing and
+experimenting.
+
 ## Installing
 
 The package can be installed with `pip` or related tools, for example:
