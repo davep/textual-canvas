@@ -1,5 +1,5 @@
 [BASIC]
-good-names=x,y,n
+good-names=x,x0,x1,y,y0,y1,n,dx,sx,dy,sy,e2
 max-args=10
 
 [FORMAT]
