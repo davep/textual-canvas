@@ -3,6 +3,7 @@
 ##############################################################################
 # Python imports.
 from __future__ import annotations
+from typing     import Iterable
 from functools  import lru_cache
 from math       import ceil
 
@@ -105,6 +106,24 @@ class Canvas( ScrollView, can_focus=True ):
         if x < 0 or y < 0 or x >= self._width or y >= self._height:
             raise CanvasError(f"x={x}, y={y} is not within 0, 0, {self._width}, {self._height}" )
 
+    def set_pixels( self, locations: Iterable[ tuple[ int, int ] ], color: Color ) -> None:
+        """Set the colour of a collection of pixels on the canvas.
+
+        Args:
+            locations: An iterable of tuples of x and y location.
+            color: The color to set the pixel to.
+
+        Raises:
+            CanvasError: If any pixel location is not within the canvas.
+
+        Note:
+            The origin of the canvas is the top left corner.
+        """
+        for x, y in locations:
+            self._pixel_check( x, y )
+            self._canvas[ y ][ x ] = color
+        self.refresh()
+
     def set_pixel( self, x: int, y: int, color: Color ) -> None:
         """Set the colour of a specific pixel on the canvas.
 
@@ -119,9 +138,7 @@ class Canvas( ScrollView, can_focus=True ):
         Note:
             The origin of the canvas is the top left corner.
         """
-        self._pixel_check( x, y )
-        self._canvas[ y ][ x ] = color
-        self.refresh()
+        self.set_pixels( ( ( x, y ), ), color )
 
     def get_pixel( self, x: int, y: int ) -> Color:
         """Get the pixel at the given location.
