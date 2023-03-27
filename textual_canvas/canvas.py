@@ -19,6 +19,10 @@ from textual.scroll_view import ScrollView
 from textual.strip       import Strip
 
 ##############################################################################
+class CanvasError( Exception ):
+    """Type of errors raised by the `Canvas` widget."""
+
+##############################################################################
 class Canvas( ScrollView, can_focus=True ):
     """A simple character-cell canvas widget.
 
@@ -88,6 +92,19 @@ class Canvas( ScrollView, can_focus=True ):
         """The height of the canvas in 'pixels'."""
         return self._height
 
+    def _pixel_check( self, x: int, y: int ) -> None:
+        """Check that a location is within the canvas.
+
+        Args:
+            x: The horizontal location of the pixel.
+            y: The vertical location of the pixel.
+
+        Raises:
+            CanvasError: If the pixel location is not within the canvas.
+        """
+        if x < 0 or y < 0 or x >= self._width or y >= self._height:
+            raise CanvasError(f"x={x}, y={y} is not within 0, 0, {self._width}, {self._height}" )
+
     def set_pixel( self, x: int, y: int, color: Color ) -> None:
         """Set the colour of a specific pixel on the canvas.
 
@@ -96,9 +113,13 @@ class Canvas( ScrollView, can_focus=True ):
             y: The vertical location of the pixel.
             color: The color to set the pixel to.
 
+        Raises:
+            CanvasError: If the pixel location is not within the canvas.
+
         Note:
             The origin of the canvas is the top left corner.
         """
+        self._pixel_check( x, y )
         self._canvas[ y ][ x ] = color
         self.refresh()
 
@@ -111,7 +132,14 @@ class Canvas( ScrollView, can_focus=True ):
 
         Returns:
             The colour of the pixel at that location.
+
+        Raises:
+            CanvasError: If the pixel location is not within the canvas.
+
+        Note:
+            The origin of the canvas is the top left corner.
         """
+        self._pixel_check( x, y )
         return self._canvas[ y ][ x ]
 
     _CELL = "\u2584"

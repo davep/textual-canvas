@@ -12,10 +12,10 @@ __licence__    = "MIT"
 
 ##############################################################################
 # Local imports.
-from .canvas import Canvas
+from .canvas import Canvas, CanvasError
 
 ##############################################################################
 # Export the imports.
-__all__ = [ "Canvas" ]
+__all__ = [ "Canvas", "CanvasError" ]
 
 ### __init__.py ends here
