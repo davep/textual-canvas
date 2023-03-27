@@ -212,6 +212,33 @@ class Canvas( ScrollView, can_focus=True ):
 
         return self.set_pixels( pixels, color )
 
+    def draw_rectangle( self, x: int, y: int, width: int, height: int, color: Color ) -> Self:
+        """Draw a rectangle.
+
+        Args:
+            x: Horizontal location of the top left corner of the rectangle.
+            y: Vertical location of the top left corner of the rectangle.
+            width: The width of the rectangle.
+            height: The height of the rectangle.
+            color: The color to draw the rectangle in.
+
+        Raises:
+            CanvasError: If any pixel location is not within the canvas.
+
+        Note:
+            The origin of the canvas is the top left corner.
+        """
+        with self.app.batch_update():
+            return self.draw_line(
+                x, y, x + width, y, color
+            ).draw_line(
+                x + width, y, x + width, y + height, color
+            ).draw_line(
+                x + width, y + height, x, y + height, color
+            ).draw_line(
+                x, y + height, x, y, color
+            )
+
     _CELL = "\u2584"
     """The character to use to draw two pixels in one cell in the canvas."""
 
