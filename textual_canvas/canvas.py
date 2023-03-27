@@ -76,7 +76,7 @@ class Canvas( ScrollView, can_focus=True ):
         self._the_void = [ color for _ in range( width ) ]
 
         # Ensure we can scroll around the canvas.
-        self.virtual_size = Size( self._width, ceil( self._height / 2 ) )
+        self.virtual_size = Size( width, ceil( height / 2 ) )
 
     @property
     def width( self ) -> int:
