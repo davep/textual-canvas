@@ -4,6 +4,7 @@
 # Python imports.
 from __future__ import annotations
 from functools  import lru_cache
+from math       import ceil
 
 ##############################################################################
 # Rich imports.
@@ -13,6 +14,7 @@ from rich.style   import Style
 ##############################################################################
 # Textual imports.
 from textual.color       import Color
+from textual.geometry    import Size
 from textual.scroll_view import ScrollView
 from textual.strip       import Strip
 
@@ -72,6 +74,9 @@ class Canvas( ScrollView, can_focus=True ):
         # TODO: Rather than use the default colour of the canvas, perhaps
         # take the background color of the widget itself?
         self._the_void = [ color for _ in range( width ) ]
+
+        # Ensure we can scroll around the canvas.
+        self.virtual_size = Size( self._width, ceil( self._height / 2 ) )
 
     @property
     def width( self ) -> int:
@@ -135,14 +140,12 @@ class Canvas( ScrollView, can_focus=True ):
             A `Strip` that is the line to render.
         """
 
-        # TODO: Handle scroll offsets. At the moment I'm just messing with
-        # the basic idea, but I want this to be able to scroll in X and Y
-        # (it's not hard, of course, but I just don't want to complicate
-        # things at the moment).
+        # Get where we're scrolled to.
+        scroll_x, scroll_y = self.scroll_offset
 
         # We're going to be drawing two lines from the canvas in one line in
         # the display. Let's work out the first line first.
-        top_line = y * 2
+        top_line = ( scroll_y + y ) * 2
 
         # Is this off the canvas already?
         if top_line >= self.height:
@@ -163,6 +166,6 @@ class Canvas( ScrollView, can_focus=True ):
         return Strip( [
             self._segment_of( top_pixels[ pixel ], bottom_pixels[ pixel ] )
             for pixel in range( self.width )
-        ] )
+        ] ).crop( scroll_x, scroll_x + self.scrollable_content_region.width )
 
 ### canvas.py ends here
