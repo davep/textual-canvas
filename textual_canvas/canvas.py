@@ -2,10 +2,11 @@
 
 ##############################################################################
 # Python imports.
-from __future__ import annotations
-from typing     import Iterable
-from functools  import lru_cache
-from math       import ceil
+from __future__        import annotations
+from typing            import Iterable
+from functools         import lru_cache
+from math              import ceil
+from typing_extensions import Self
 
 ##############################################################################
 # Rich imports.
@@ -106,12 +107,15 @@ class Canvas( ScrollView, can_focus=True ):
         if x < 0 or y < 0 or x >= self._width or y >= self._height:
             raise CanvasError(f"x={x}, y={y} is not within 0, 0, {self._width}, {self._height}" )
 
-    def set_pixels( self, locations: Iterable[ tuple[ int, int ] ], color: Color ) -> None:
+    def set_pixels( self, locations: Iterable[ tuple[ int, int ] ], color: Color ) -> Self:
         """Set the colour of a collection of pixels on the canvas.
 
         Args:
             locations: An iterable of tuples of x and y location.
             color: The color to set the pixel to.
+
+        Returns:
+            The canvas.
 
         Raises:
             CanvasError: If any pixel location is not within the canvas.
@@ -123,8 +127,9 @@ class Canvas( ScrollView, can_focus=True ):
             self._pixel_check( x, y )
             self._canvas[ y ][ x ] = color
         self.refresh()
+        return self
 
-    def set_pixel( self, x: int, y: int, color: Color ) -> None:
+    def set_pixel( self, x: int, y: int, color: Color ) -> Self:
         """Set the colour of a specific pixel on the canvas.
 
         Args:
@@ -138,7 +143,7 @@ class Canvas( ScrollView, can_focus=True ):
         Note:
             The origin of the canvas is the top left corner.
         """
-        self.set_pixels( ( ( x, y ), ), color )
+        return self.set_pixels( ( ( x, y ), ), color )
 
     def get_pixel( self, x: int, y: int ) -> Color:
         """Get the pixel at the given location.
@@ -159,7 +164,7 @@ class Canvas( ScrollView, can_focus=True ):
         self._pixel_check( x, y )
         return self._canvas[ y ][ x ]
 
-    def draw_line( self, x0: int, y0: int, x1: int, y1: int, color: Color ) -> None:
+    def draw_line( self, x0: int, y0: int, x1: int, y1: int, color: Color ) -> Self:
         """Draw a line between two points.
 
         Args:
@@ -168,6 +173,9 @@ class Canvas( ScrollView, can_focus=True ):
             x1: Horizontal location of the ending position.
             y1: Vertical location of the ending position.
             color: The color to set the pixel to.
+
+        Returns:
+            The colour of the pixel at that location.
 
         Raises:
             CanvasError: If the pixel location is not within the canvas.
@@ -202,7 +210,7 @@ class Canvas( ScrollView, can_focus=True ):
                 err += dx
                 y0 += sy
 
-        self.set_pixels( pixels, color )
+        return self.set_pixels( pixels, color )
 
     _CELL = "\u2584"
     """The character to use to draw two pixels in one cell in the canvas."""
