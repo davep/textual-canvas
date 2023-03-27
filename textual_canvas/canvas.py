@@ -159,8 +159,8 @@ class Canvas( ScrollView, can_focus=True ):
         self._pixel_check( x, y )
         return self._canvas[ y ][ x ]
 
-    def plot_line( self, x0: int, y0: int, x1: int, y1: int, color: Color ) -> None:
-        """Plot a line between two points.
+    def draw_line( self, x0: int, y0: int, x1: int, y1: int, color: Color ) -> None:
+        """Draw a line between two points.
 
         Args:
             x0: Horizontal location of the starting position.
