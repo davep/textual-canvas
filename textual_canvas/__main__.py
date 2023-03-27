@@ -22,26 +22,28 @@ class CanvasTestApp( App[ None ] ):
     """
 
     def compose( self ) -> ComposeResult:
-        yield Canvas( 100, 100, Color( 30, 40, 50 ) )
+        yield Canvas( 120, 120, Color( 30, 40, 50 ) )
 
     def on_mount( self ) -> None:
         """Set up the display once the DOM is available."""
         canvas = self.query_one( Canvas )
-        for column in range( 80 ):
-            canvas.set_pixel( 10 + column, 0, Color( 255, 0, 0 ) )
-            canvas.set_pixel( 10 + column, 1, Color( 0, 255, 0 ) )
-            canvas.set_pixel( 10 + column, 2, Color( 0, 0, 255 ) )
-            canvas.set_pixel( 10 + column, 3, Color( 128, 0, 0 ) )
-            canvas.set_pixel( 10 + column, 4, Color( 0, 128, 0 ) )
-            canvas.set_pixel( 10 + column, 5, Color( 0, 0, 128 ) )
 
-            canvas.set_pixel( 10 + column, 20, Color( 255, 0, 0 ) )
-            canvas.set_pixel( 10 + column, 21, Color( 0, 255, 0 ) )
-            canvas.set_pixel( 10 + column, 22, Color( 0, 0, 255 ) )
+        canvas.plot_line( 60, 40, 90, 80, Color( 128, 128, 128 ) )
+        canvas.plot_line( 60, 40, 30, 80, Color( 128, 128, 128 ) )
+        canvas.plot_line( 30, 80, 90, 80, Color( 128, 128, 128 ) )
 
-        for n in range( 20 ):
-            canvas.set_pixel( 30 + n, 30 + n, Color( 128, 0, 255 ) )
-            canvas.set_pixel( 30 - n, 30 + n, Color( 128, 0, 255 ) )
+        canvas.plot_line( 0, 70, 48, 55, Color( 255, 255, 255 ) )
+
+        for n in range( 52, 59 ):
+            canvas.plot_line( 48, 55, 58, n, Color( 128, 128, 128 ) )
+
+        canvas.plot_line( 70, 52, 119, 57, Color( 255, 0, 0 ) )
+        canvas.plot_line( 71, 53, 119, 58, Color( 255, 165, 0 ) )
+        canvas.plot_line( 72, 54, 119, 59, Color( 255, 255, 0 ) )
+        canvas.plot_line( 72, 55, 119, 60, Color( 0, 255, 0 ) )
+        canvas.plot_line( 73, 56, 119, 61, Color( 0, 0, 255 ) )
+        canvas.plot_line( 74, 57, 119, 62, Color( 75, 0, 130 ) )
+        canvas.plot_line( 75, 58, 119, 63, Color( 143, 0, 255 ) )
 
 if __name__ == "__main__":
     CanvasTestApp().run()
