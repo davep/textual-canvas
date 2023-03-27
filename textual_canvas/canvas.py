@@ -159,6 +159,51 @@ class Canvas( ScrollView, can_focus=True ):
         self._pixel_check( x, y )
         return self._canvas[ y ][ x ]
 
+    def plot_line( self, x0: int, y0: int, x1: int, y1: int, color: Color ) -> None:
+        """Plot a line between two points.
+
+        Args:
+            x0: Horizontal location of the starting position.
+            y0: Vertical location of the starting position.
+            x1: Horizontal location of the ending position.
+            y1: Vertical location of the ending position.
+            color: The color to set the pixel to.
+
+        Raises:
+            CanvasError: If the pixel location is not within the canvas.
+
+        Note:
+            The origin of the canvas is the top left corner.
+        """
+
+        # Taken from https://en.wikipedia.org/wiki/Bresenham's_line_algorithm#All_cases.
+
+        pixels: list[ tuple[ int, int ] ] = []
+
+        dx  = abs( x1 - x0 )
+        sx  = 1 if x0 < x1 else -1
+        dy  = -abs( y1 - y0 )
+        sy  = 1 if y0 < y1 else -1
+        err = dx + dy
+
+        while True:
+            pixels.append( ( x0, y0 ) )
+            if x0 == x1 and y0 == y1:
+                break
+            e2 = 2 * err
+            if e2 >= dy:
+                if x0 == x1:
+                    break
+                err += dy
+                x0 += sx
+            if e2 <= dx:
+                if y0 == y1:
+                    break
+                err += dx
+                y0 += sy
+
+        self.set_pixels( pixels, color )
+
     _CELL = "\u2584"
     """The character to use to draw two pixels in one cell in the canvas."""
 
