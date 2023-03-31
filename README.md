@@ -1,5 +1,8 @@
 # textual-canvas
 
+![Being used for textual-mandelbrot](https://raw.githubusercontent.com/davep/textual-canvas/main/img/textual-mandelbrot.png)
+*An example of `textual-canvas` being used in a Textual application*
+
 ## Introduction
 
 This library aims to provide a very simple terminal-based drawing canvas
