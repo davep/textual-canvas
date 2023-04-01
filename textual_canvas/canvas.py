@@ -205,7 +205,8 @@ class Canvas( ScrollView, can_focus=True ):
         err = dx + dy
 
         while True:
-            pixels.append( ( x0, y0 ) )
+            if not self._outwith_the_canvas( x0, y0 ):
+                pixels.append( ( x0, y0 ) )
             if x0 == x1 and y0 == y1:
                 break
             e2 = 2 * err
