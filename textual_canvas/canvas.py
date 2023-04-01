@@ -94,6 +94,16 @@ class Canvas( ScrollView, can_focus=True ):
         """The height of the canvas in 'pixels'."""
         return self._height
 
+    def _outwith_the_canvas( self, x: int, y: int ) -> bool:
+        """Is the location outwith the canvas?
+
+        Args:
+            x: The horizontal location of the pixel.
+            y: The vertical location of the pixel.
+
+        """
+        return x < 0 or y < 0 or x >= self._width or y >= self._height
+
     def _pixel_check( self, x: int, y: int ) -> None:
         """Check that a location is within the canvas.
 
@@ -104,7 +114,7 @@ class Canvas( ScrollView, can_focus=True ):
         Raises:
             CanvasError: If the pixel location is not within the canvas.
         """
-        if x < 0 or y < 0 or x >= self._width or y >= self._height:
+        if self._outwith_the_canvas( x, y ):
             raise CanvasError(f"x={x}, y={y} is not within 0, 0, {self._width}, {self._height}" )
 
     def set_pixels( self, locations: Iterable[ tuple[ int, int ] ], color: Color ) -> Self:
