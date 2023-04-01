@@ -187,9 +187,6 @@ class Canvas( ScrollView, can_focus=True ):
         Returns:
             The canvas.
 
-        Raises:
-            CanvasError: If the pixel location is not within the canvas.
-
         Note:
             The origin of the canvas is the top left corner.
         """
@@ -235,9 +232,6 @@ class Canvas( ScrollView, can_focus=True ):
 
         Returns:
             The canvas.
-
-        Raises:
-            CanvasError: If any pixel location is not within the canvas.
 
         Note:
             The origin of the canvas is the top left corner.
@@ -286,6 +280,9 @@ class Canvas( ScrollView, can_focus=True ):
 
         Returns:
             The canvas.
+
+        Note:
+            The origin of the canvas is the top left corner.
         """
 
         # Taken from https://funloop.org/post/2021-03-15-bresenham-circle-drawing-algorithm.html.
