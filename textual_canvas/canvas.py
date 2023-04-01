@@ -253,6 +253,68 @@ class Canvas( ScrollView, can_focus=True ):
                 x, y + height, x, y, color
             )
 
+    @staticmethod
+    def _circle_mirror( x: int, y: int ) -> tuple[ tuple[ int, int ], ... ]:
+        """Create an 8-way symmetry of the given points.
+
+        Args:
+            x: Horizontal location of the point to mirror.
+            y: Vertical location of the point to mirror.
+
+        Returns:
+            The points needed to create an 8-way symmetry.
+        """
+        return (
+            (  x,  y ),
+            (  y,  x ),
+            ( -x,  y ),
+            ( -y,  x ),
+            (  x, -y ),
+            (  y, -x ),
+            ( -x, -y ),
+            ( -y, -x )
+        )
+
+    def draw_circle( self, center_x: int, center_y: int, radius: int, color: Color ) -> Self:
+        """Draw a circle
+
+        Args:
+            center_x: The horizontal position of the center of the circle.
+            center_y: The vertical position of the center of the circle.
+            radius: The radius of the circle.
+            color: The colour to draw circle in.
+
+        Returns:
+            The canvas.
+        """
+
+        # Taken from https://funloop.org/post/2021-03-15-bresenham-circle-drawing-algorithm.html.
+
+        pixels: list[ tuple[ int, int ] ] = []
+
+        x = 0
+        y = -radius
+        f_m = 1 - radius
+        d_e = 3
+        d_ne = -( radius << 1 ) + 5
+        pixels.extend( self._circle_mirror( x, y ) )
+        while x < -y:
+            if f_m <= 0:
+                f_m += d_e
+            else:
+                f_m += d_ne
+                d_ne += 2
+                y += 1
+            d_e += 2
+            d_ne += 2
+            x += 1
+            pixels.extend( self._circle_mirror( x, y ) )
+
+        return self.set_pixels( [
+            ( center_x + x, center_y + y ) for x, y in pixels
+            if not self._outwith_the_canvas( center_x + x, center_y + y )
+        ], color )
+
     _CELL = "\u2584"
     """The character to use to draw two pixels in one cell in the canvas."""
 

@@ -73,6 +73,7 @@ Currently there are the following methods available for drawing:
 - `set_pixels( self, locations: Iterable[ tuple[ int, int ] ], color: Color ) -> Self`
 - `draw_line( self, x0: int, y0: int, x1: int, y1: int, color: Color ) -> Self`
 - `draw_rectangle( self, x: int, y: int, width: int, height: int, color: Color ) -> Self`
+- `draw_circle( self, center_x: int, center_y: int, radius: int, color: Color ) -> Self`
 
 I'll document all of this better, when I spend more time on it than the 1/2
 hour somewhere between dinner and bedtime.
