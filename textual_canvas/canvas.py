@@ -115,7 +115,7 @@ class Canvas( ScrollView, can_focus=True ):
             CanvasError: If the pixel location is not within the canvas.
         """
         if self._outwith_the_canvas( x, y ):
-            raise CanvasError(f"x={x}, y={y} is not within 0, 0, {self._width}, {self._height}" )
+            raise CanvasError(f"{x=}, {y=} is not within 0, 0, {self._width}, {self._height}" )
 
     def set_pixels( self, locations: Iterable[ tuple[ int, int ] ], color: Color ) -> Self:
         """Set the colour of a collection of pixels on the canvas.
