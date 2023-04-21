@@ -45,6 +45,8 @@ class CanvasTestApp( App[ None ] ):
         canvas.draw_line( 74, 57, 119, 62, Color( 75, 0, 130 ) )
         canvas.draw_line( 75, 58, 119, 63, Color( 143, 0, 255 ) )
 
+        canvas.focus()
+
 if __name__ == "__main__":
     CanvasTestApp().run()
 
