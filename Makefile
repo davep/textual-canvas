@@ -7,6 +7,7 @@ lint   := $(run) pylint
 mypy   := $(run) mypy
 twine  := $(run) twine
 vermin := $(run) vermin -v --no-parse-comments --backport dataclasses --backport typing --eval-annotations
+black  := $(run) black
 
 ##############################################################################
 # Run the plotter.
