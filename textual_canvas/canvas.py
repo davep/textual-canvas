@@ -2,30 +2,32 @@
 
 ##############################################################################
 # Python imports.
-from __future__        import annotations
-from typing            import Iterable
-from functools         import lru_cache
-from math              import ceil
+from __future__ import annotations
+from typing import Iterable
+from functools import lru_cache
+from math import ceil
 from typing_extensions import Self
 
 ##############################################################################
 # Rich imports.
 from rich.segment import Segment
-from rich.style   import Style
+from rich.style import Style
 
 ##############################################################################
 # Textual imports.
-from textual.color       import Color
-from textual.geometry    import Size
+from textual.color import Color
+from textual.geometry import Size
 from textual.scroll_view import ScrollView
-from textual.strip       import Strip
+from textual.strip import Strip
+
 
 ##############################################################################
-class CanvasError( Exception ):
+class CanvasError(Exception):
     """Type of errors raised by the `Canvas` widget."""
 
+
 ##############################################################################
-class Canvas( ScrollView, can_focus=True ):
+class Canvas(ScrollView, can_focus=True):
     """A simple character-cell canvas widget.
 
     The widget is designed such that there are two 'pixels' per character
@@ -45,11 +47,11 @@ class Canvas( ScrollView, can_focus=True ):
         self,
         width: int,
         height: int,
-        color: Color = Color( 0, 0, 0),
-        name: str | None    = None,
-        id: str | None      = None, # pylint:disable=redefined-builtin
+        color: Color = Color(0, 0, 0),
+        name: str | None = None,
+        id: str | None = None,  # pylint:disable=redefined-builtin
         classes: str | None = None,
-        disabled: bool      = False
+        disabled: bool = False,
     ):
         """Initialise the canvas.
 
@@ -63,38 +65,36 @@ class Canvas( ScrollView, can_focus=True ):
             disabled: Whether the canvas widget is disabled or not.
         """
         # Pass the normal Textual widget stuff up the chain.
-        super().__init__( name=name, id=id, classes=classes, disabled=disabled )
+        super().__init__(name=name, id=id, classes=classes, disabled=disabled)
 
         # Remember the width and height.
-        self._width  = width
+        self._width = width
         self._height = height
 
         # Generate the underlying "canvas" structure.
-        self._canvas = [
-            [ color for _ in range( width ) ] for _ in range( height )
-        ]
+        self._canvas = [[color for _ in range(width)] for _ in range(height)]
 
         # Used as a source of "there's nothing here" for the last row in a
         # canvas if we're likely to go off the end.
         #
         # TODO: Rather than use the default colour of the canvas, perhaps
         # take the background color of the widget itself?
-        self._the_void = [ color for _ in range( width ) ]
+        self._the_void = [color for _ in range(width)]
 
         # Ensure we can scroll around the canvas.
-        self.virtual_size = Size( width, ceil( height / 2 ) )
+        self.virtual_size = Size(width, ceil(height / 2))
 
     @property
-    def width( self ) -> int:
+    def width(self) -> int:
         """The width of the canvas in 'pixels'."""
         return self._width
 
     @property
-    def height( self ) -> int:
+    def height(self) -> int:
         """The height of the canvas in 'pixels'."""
         return self._height
 
-    def _outwith_the_canvas( self, x: int, y: int ) -> bool:
+    def _outwith_the_canvas(self, x: int, y: int) -> bool:
         """Is the location outwith the canvas?
 
         Args:
@@ -104,7 +104,7 @@ class Canvas( ScrollView, can_focus=True ):
         """
         return x < 0 or y < 0 or x >= self._width or y >= self._height
 
-    def _pixel_check( self, x: int, y: int ) -> None:
+    def _pixel_check(self, x: int, y: int) -> None:
         """Check that a location is within the canvas.
 
         Args:
@@ -114,10 +114,12 @@ class Canvas( ScrollView, can_focus=True ):
         Raises:
             CanvasError: If the pixel location is not within the canvas.
         """
-        if self._outwith_the_canvas( x, y ):
-            raise CanvasError(f"x={x}, x={y} is not within 0, 0, {self._width}, {self._height}" )
+        if self._outwith_the_canvas(x, y):
+            raise CanvasError(
+                f"x={x}, x={y} is not within 0, 0, {self._width}, {self._height}"
+            )
 
-    def set_pixels( self, locations: Iterable[ tuple[ int, int ] ], color: Color ) -> Self:
+    def set_pixels(self, locations: Iterable[tuple[int, int]], color: Color) -> Self:
         """Set the colour of a collection of pixels on the canvas.
 
         Args:
@@ -134,12 +136,12 @@ class Canvas( ScrollView, can_focus=True ):
             The origin of the canvas is the top left corner.
         """
         for x, y in locations:
-            self._pixel_check( x, y )
-            self._canvas[ y ][ x ] = color
+            self._pixel_check(x, y)
+            self._canvas[y][x] = color
         self.refresh()
         return self
 
-    def set_pixel( self, x: int, y: int, color: Color ) -> Self:
+    def set_pixel(self, x: int, y: int, color: Color) -> Self:
         """Set the colour of a specific pixel on the canvas.
 
         Args:
@@ -153,9 +155,9 @@ class Canvas( ScrollView, can_focus=True ):
         Note:
             The origin of the canvas is the top left corner.
         """
-        return self.set_pixels( ( ( x, y ), ), color )
+        return self.set_pixels(((x, y),), color)
 
-    def get_pixel( self, x: int, y: int ) -> Color:
+    def get_pixel(self, x: int, y: int) -> Color:
         """Get the pixel at the given location.
 
         Args:
@@ -171,10 +173,10 @@ class Canvas( ScrollView, can_focus=True ):
         Note:
             The origin of the canvas is the top left corner.
         """
-        self._pixel_check( x, y )
-        return self._canvas[ y ][ x ]
+        self._pixel_check(x, y)
+        return self._canvas[y][x]
 
-    def draw_line( self, x0: int, y0: int, x1: int, y1: int, color: Color ) -> Self:
+    def draw_line(self, x0: int, y0: int, x1: int, y1: int, color: Color) -> Self:
         """Draw a line between two points.
 
         Args:
@@ -193,17 +195,17 @@ class Canvas( ScrollView, can_focus=True ):
 
         # Taken from https://en.wikipedia.org/wiki/Bresenham's_line_algorithm#All_cases.
 
-        pixels: list[ tuple[ int, int ] ] = []
+        pixels: list[tuple[int, int]] = []
 
-        dx  = abs( x1 - x0 )
-        sx  = 1 if x0 < x1 else -1
-        dy  = -abs( y1 - y0 )
-        sy  = 1 if y0 < y1 else -1
+        dx = abs(x1 - x0)
+        sx = 1 if x0 < x1 else -1
+        dy = -abs(y1 - y0)
+        sy = 1 if y0 < y1 else -1
         err = dx + dy
 
         while True:
-            if not self._outwith_the_canvas( x0, y0 ):
-                pixels.append( ( x0, y0 ) )
+            if not self._outwith_the_canvas(x0, y0):
+                pixels.append((x0, y0))
             if x0 == x1 and y0 == y1:
                 break
             e2 = 2 * err
@@ -218,9 +220,11 @@ class Canvas( ScrollView, can_focus=True ):
                 err += dx
                 y0 += sy
 
-        return self.set_pixels( pixels, color )
+        return self.set_pixels(pixels, color)
 
-    def draw_rectangle( self, x: int, y: int, width: int, height: int, color: Color ) -> Self:
+    def draw_rectangle(
+        self, x: int, y: int, width: int, height: int, color: Color
+    ) -> Self:
         """Draw a rectangle.
 
         Args:
@@ -237,18 +241,15 @@ class Canvas( ScrollView, can_focus=True ):
             The origin of the canvas is the top left corner.
         """
         with self.app.batch_update():
-            return self.draw_line(
-                x, y, x + width, y, color
-            ).draw_line(
-                x + width, y, x + width, y + height, color
-            ).draw_line(
-                x + width, y + height, x, y + height, color
-            ).draw_line(
-                x, y + height, x, y, color
+            return (
+                self.draw_line(x, y, x + width, y, color)
+                .draw_line(x + width, y, x + width, y + height, color)
+                .draw_line(x + width, y + height, x, y + height, color)
+                .draw_line(x, y + height, x, y, color)
             )
 
     @staticmethod
-    def _circle_mirror( x: int, y: int ) -> tuple[ tuple[ int, int ], ... ]:
+    def _circle_mirror(x: int, y: int) -> tuple[tuple[int, int], ...]:
         """Create an 8-way symmetry of the given points.
 
         Args:
@@ -258,18 +259,11 @@ class Canvas( ScrollView, can_focus=True ):
         Returns:
             The points needed to create an 8-way symmetry.
         """
-        return (
-            (  x,  y ),
-            (  y,  x ),
-            ( -x,  y ),
-            ( -y,  x ),
-            (  x, -y ),
-            (  y, -x ),
-            ( -x, -y ),
-            ( -y, -x )
-        )
+        return ((x, y), (y, x), (-x, y), (-y, x), (x, -y), (y, -x), (-x, -y), (-y, -x))
 
-    def draw_circle( self, center_x: int, center_y: int, radius: int, color: Color ) -> Self:
+    def draw_circle(
+        self, center_x: int, center_y: int, radius: int, color: Color
+    ) -> Self:
         """Draw a circle
 
         Args:
@@ -287,14 +281,14 @@ class Canvas( ScrollView, can_focus=True ):
 
         # Taken from https://funloop.org/post/2021-03-15-bresenham-circle-drawing-algorithm.html.
 
-        pixels: list[ tuple[ int, int ] ] = []
+        pixels: list[tuple[int, int]] = []
 
         x = 0
         y = -radius
         f_m = 1 - radius
         d_e = 3
-        d_ne = -( radius << 1 ) + 5
-        pixels.extend( self._circle_mirror( x, y ) )
+        d_ne = -(radius << 1) + 5
+        pixels.extend(self._circle_mirror(x, y))
         while x < -y:
             if f_m <= 0:
                 f_m += d_e
@@ -305,18 +299,22 @@ class Canvas( ScrollView, can_focus=True ):
             d_e += 2
             d_ne += 2
             x += 1
-            pixels.extend( self._circle_mirror( x, y ) )
+            pixels.extend(self._circle_mirror(x, y))
 
-        return self.set_pixels( [
-            ( center_x + x, center_y + y ) for x, y in pixels
-            if not self._outwith_the_canvas( center_x + x, center_y + y )
-        ], color )
+        return self.set_pixels(
+            [
+                (center_x + x, center_y + y)
+                for x, y in pixels
+                if not self._outwith_the_canvas(center_x + x, center_y + y)
+            ],
+            color,
+        )
 
     _CELL = "\u2584"
     """The character to use to draw two pixels in one cell in the canvas."""
 
     @lru_cache()
-    def _segment_of( self, top: Color, bottom: Color ) -> Segment:
+    def _segment_of(self, top: Color, bottom: Color) -> Segment:
         """Construct a segment to show the two colours in one cell.
 
         Args:
@@ -326,9 +324,11 @@ class Canvas( ScrollView, can_focus=True ):
         Returns:
             A `Segment` that will display the two pixels.
         """
-        return Segment( self._CELL, style=Style.from_color( bottom.rich_color, top.rich_color ) )
+        return Segment(
+            self._CELL, style=Style.from_color(bottom.rich_color, top.rich_color)
+        )
 
-    def render_line( self, y: int ) -> Strip:
+    def render_line(self, y: int) -> Strip:
         """Render a line in the display.
 
         Args:
@@ -343,27 +343,36 @@ class Canvas( ScrollView, can_focus=True ):
 
         # We're going to be drawing two lines from the canvas in one line in
         # the display. Let's work out the first line first.
-        top_line = ( scroll_y + y ) * 2
+        top_line = (scroll_y + y) * 2
 
         # Is this off the canvas already?
         if top_line >= self.height:
             # Yup. Don't bother drawing anything.
-            return Strip( [] )
+            return Strip([])
 
         # Now, the bottom line is easy enough to work out.
         bottom_line = top_line + 1
 
         # Get the pixel values for the top line.
-        top_pixels = self._canvas[ top_line ]
+        top_pixels = self._canvas[top_line]
 
         # It's possible that the bottom line might be in the void, so...
-        bottom_pixels = self._the_void if bottom_line >= self.height else self._canvas[ bottom_line ]
+        bottom_pixels = (
+            self._the_void if bottom_line >= self.height else self._canvas[bottom_line]
+        )
 
         # At this point we know what colours we're going to be mashing
         # together into the terminal line we're drawing. So let's get to it.
-        return Strip( [
-            self._segment_of( top_pixels[ pixel ], bottom_pixels[ pixel ] )
-            for pixel in range( self.width )
-        ] ).crop( scroll_x, scroll_x + self.scrollable_content_region.width ).simplify()
+        return (
+            Strip(
+                [
+                    self._segment_of(top_pixels[pixel], bottom_pixels[pixel])
+                    for pixel in range(self.width)
+                ]
+            )
+            .crop(scroll_x, scroll_x + self.scrollable_content_region.width)
+            .simplify()
+        )
+
 
 ### canvas.py ends here
