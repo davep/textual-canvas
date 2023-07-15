@@ -15,6 +15,7 @@ vermin = "*"
 pre-commit = "*"
 black = "*"
 textual-dev = "*"
+tomli = "*"
 
 [requires]
 python_version = "3.8"
