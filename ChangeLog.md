@@ -1,5 +1,11 @@
 # textual-canvas ChangeLog
 
+## v0.2.0
+
+**Released: WiP**
+
+- Dropped Python 3.7 as a supported Python version.
+
 ## v0.1.0
 
 **Released: 2023-04-01**
