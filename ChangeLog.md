@@ -5,6 +5,7 @@
 **Released: WiP**
 
 - Dropped Python 3.7 as a supported Python version.
+- Added `Canvas.clear`
 
 ## v0.1.0
 

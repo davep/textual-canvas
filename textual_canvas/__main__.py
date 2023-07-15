@@ -2,7 +2,9 @@
 
 ##############################################################################
 # Textual imports.
+from textual import on
 from textual.app import App, ComposeResult
+from textual.events import Mount
 from textual.color import Color
 
 ##############################################################################
@@ -22,10 +24,17 @@ class CanvasTestApp(App[None]):
     }
     """
 
+    BINDINGS = [
+        ("r", "clear(255, 0, 0)"),
+        ("g", "clear(0, 255, 0)"),
+        ("b", "clear(0, 0, 255)"),
+    ]
+
     def compose(self) -> ComposeResult:
         yield Canvas(120, 120, Color(30, 40, 50))
 
-    def on_mount(self) -> None:
+    @on(Mount)
+    def its_all_dark(self) -> None:
         """Set up the display once the DOM is available."""
         canvas = self.query_one(Canvas)
 
@@ -47,6 +56,11 @@ class CanvasTestApp(App[None]):
         canvas.draw_line(75, 58, 119, 63, Color(143, 0, 255))
 
         canvas.focus()
+
+    def action_clear(self, red: int, green: int, blue: int) -> None:
+        """Handle the clear keyboard action."""
+        self.query_one(Canvas).clear(Color(red, green, blue))
+        self.its_all_dark()
 
 
 if __name__ == "__main__":

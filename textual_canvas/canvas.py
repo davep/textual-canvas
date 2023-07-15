@@ -67,12 +67,13 @@ class Canvas(ScrollView, can_focus=True):
         # Pass the normal Textual widget stuff up the chain.
         super().__init__(name=name, id=id, classes=classes, disabled=disabled)
 
-        # Remember the width and height.
+        # Remember main canvas parameters.
         self._width = width
         self._height = height
+        self._colour = color
 
-        # Generate the underlying "canvas" structure.
-        self._canvas = [[color for _ in range(width)] for _ in range(height)]
+        # Start with an empty canvas.
+        self._blank_canvas()
 
         # Used as a source of "there's nothing here" for the last row in a
         # canvas if we're likely to go off the end.
@@ -83,6 +84,12 @@ class Canvas(ScrollView, can_focus=True):
 
         # Ensure we can scroll around the canvas.
         self.virtual_size = Size(width, ceil(height / 2))
+
+    def _blank_canvas(self) -> None:
+        """Set the canvas to a blank canvas."""
+        self._canvas = [
+            [self._colour for _ in range(self.width)] for _ in range(self.height)
+        ]
 
     @property
     def width(self) -> int:
@@ -118,6 +125,27 @@ class Canvas(ScrollView, can_focus=True):
             raise CanvasError(
                 f"x={x}, x={y} is not within 0, 0, {self._width}, {self._height}"
             )
+
+    def clear(self, color: Color | None = None) -> Self:
+        """Clear the canvas.
+
+        Args:
+            color: Optional default colour for the canvas.
+
+        Returns:
+            The canvas.
+
+        Note:
+            If the color isn't provided, then the color used when first
+            making the canvas is used, this in turn because the new default
+            color (and will then be used for subsequent clears, unless
+            another color is provided.)
+        """
+        if color is not None:
+            self._colour = color
+        self._blank_canvas()
+        self.refresh()
+        return self
 
     def set_pixels(self, locations: Iterable[tuple[int, int]], color: Color) -> Self:
         """Set the colour of a collection of pixels on the canvas.
