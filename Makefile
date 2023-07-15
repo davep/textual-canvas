@@ -27,6 +27,7 @@ console:
 .PHONY: setup
 setup:				# Install all dependencies
 	pipenv sync --dev
+	$(run) pre-commit install
 
 .PHONY: resetup
 resetup:			# Recreate the virtual environment from scratch
@@ -90,6 +91,10 @@ dist: packagecheck		# Upload to pypi
 
 ##############################################################################
 # Utility.
+.PHONY: ugly
+ugly:				# Reformat the code with black.
+	$(black) $(lib)
+
 .PHONY: repl
 repl:				# Start a Python REPL
 	$(python)
