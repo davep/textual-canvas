@@ -6,7 +6,6 @@ python := $(run) python
 lint   := $(run) pylint
 mypy   := $(run) mypy
 twine  := $(run) twine
-vermin := $(run) vermin -v --no-parse-comments --backport dataclasses --backport typing --eval-annotations
 black  := $(run) black
 
 ##############################################################################
@@ -60,10 +59,6 @@ typecheck:			# Perform static type checks with mypy
 .PHONY: stricttypecheck
 stricttypecheck:	        # Perform a strict static type checks with mypy
 	$(mypy) --scripts-are-modules --strict $(lib)
-
-.PHONY: minpy
-minpy:				# Check the minimum supported Python version
-	$(vermin) $(lib)
 
 .PHONY: checkall
 checkall: lint stricttypecheck # Check all the things
