@@ -2,7 +2,7 @@
 
 ## v0.2.0
 
-**Released: WiP**
+**Released: 2023-07-16**
 
 - Dropped Python 3.7 as a supported Python version.
 - Added `Canvas.clear`
