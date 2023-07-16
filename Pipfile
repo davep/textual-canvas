@@ -15,6 +15,7 @@ pre-commit = "*"
 black = "*"
 textual-dev = "*"
 tomli = "*"
+build = "*"
 
 [requires]
 python_version = "3.8"
