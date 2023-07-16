@@ -69,6 +69,7 @@ yield Canvas( 120, 120, Color( 30, 40, 50 ) )
 
 Currently there are the following methods available for drawing:
 
+- `clear( self, color: Color | None = None ) -> Self`
 - `set_pixel( self, x: int, y: int, color: Color ) -> Self`
 - `set_pixels( self, locations: Iterable[ tuple[ int, int ] ], color: Color ) -> Self`
 - `draw_line( self, x0: int, y0: int, x1: int, y1: int, color: Color ) -> Self`
