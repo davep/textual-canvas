@@ -12,6 +12,7 @@
 -e file:.
 cfgv==3.4.0
     # via pre-commit
+codespell==2.4.1
 distlib==0.3.9
     # via virtualenv
 filelock==3.18.0

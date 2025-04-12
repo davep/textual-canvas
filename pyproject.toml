@@ -54,6 +54,7 @@ dev-dependencies = [
     "pre-commit>=4.2.0",
     "mypy>=1.15.0",
     "ruff>=0.11.5",
+    "codespell>=2.4.1",
 ]
 
 [tool.hatch.metadata]
