@@ -1,13 +1,17 @@
 """A library that provides a simple canvas for drawing in Textual."""
 
+##############################################################################
+# Python imports.
+from importlib.metadata import version
+
 ######################################################################
 # Main app information.
 __author__ = "Dave Pearson"
-__copyright__ = "Copyright 2023, Dave Pearson"
+__copyright__ = "Copyright 2023-2025, Dave Pearson"
 __credits__ = ["Dave Pearson"]
 __maintainer__ = "Dave Pearson"
 __email__ = "davep@davep.org"
-__version__ = "0.2.1"
+__version__ = version("textual_canvas")
 __licence__ = "MIT"
 
 ##############################################################################

@@ -1,12 +1,14 @@
 """Provides a simple character cell-based canvas widget for Textual applications."""
 
 ##############################################################################
-# Python imports.
+# Backward compatibility.
 from __future__ import annotations
-from typing import Iterable
+
+##############################################################################
+# Python imports.
 from functools import lru_cache
 from math import ceil
-from typing_extensions import Self
+from typing import Iterable
 
 ##############################################################################
 # Rich imports.
@@ -19,6 +21,10 @@ from textual.color import Color
 from textual.geometry import Size
 from textual.scroll_view import ScrollView
 from textual.strip import Strip
+
+##############################################################################
+# Typing extension imports.
+from typing_extensions import Self
 
 
 ##############################################################################
