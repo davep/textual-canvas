@@ -4,8 +4,8 @@
 # Textual imports.
 from textual import on
 from textual.app import App, ComposeResult
-from textual.events import Mount
 from textual.color import Color
+from textual.events import Mount
 
 ##############################################################################
 # Local imports.
