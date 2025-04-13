@@ -5,6 +5,7 @@ repo_url: https://github.com/davep/textual-canvas
 nav:
   - Guide:
       - index.md
+      - guide.md
   - Library Contents:
       - canvas.md
 
