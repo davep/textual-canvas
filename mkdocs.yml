@@ -40,6 +40,7 @@ plugins:
             - "^__.+__$"
             - "!^on_mount$"
             - "!^compose$"
+            - "!^render_line"
           modernize_annotations: false
           show_symbol_type_heading: true
           show_symbol_type_toc: true
