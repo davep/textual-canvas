@@ -1,5 +1,19 @@
 # textual-canvas ChangeLog
 
+## Unreleased
+
+**Released: WiP**
+
+- Renamed `color` `__init__` parameter to `canvas_color`.
+- Added `pen_color` as an `__init__` parameter; defaults to the widget's
+  currently-styled `color`.
+- Made the "void"'s colour the widget's styled background colour.
+- Made the canvas colour optional; defaulting to the widget's
+  currently-styled background colour.
+- Made all `color` parameters for drawing methods optional, defaulting to
+  the current "pen colour".
+- Added `set_pen`.
+
 ## v0.2.0
 
 **Released: 2023-07-16**
