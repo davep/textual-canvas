@@ -143,9 +143,9 @@ class Canvas(ScrollView, can_focus=True):
 
         Note:
             If the color isn't provided, then the color used when first
-            making the canvas is used, this in turn because the new default
+            making the canvas is used, this in turn becomes the new default
             color (and will then be used for subsequent clears, unless
-            another color is provided.)
+            another color is provided).
         """
         if color is not None:
             self._colour = color
