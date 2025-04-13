@@ -1,5 +1,23 @@
 # textual-canvas ChangeLog
 
+## Unreleased
+
+**Released: WiP**
+
+- Renamed `color` `__init__` parameter to `canvas_color`.
+  ([#7](https://github.com/davep/textual-canvas/pull/7))
+- Added `pen_color` as an `__init__` parameter; defaults to the widget's
+  currently-styled `color`.
+  ([#7](https://github.com/davep/textual-canvas/pull/7))
+- Made the "void"'s colour the widget's styled background colour.
+  ([#7](https://github.com/davep/textual-canvas/pull/7))
+- Made the canvas colour optional; defaulting to the widget's
+  currently-styled background colour.
+  ([#7](https://github.com/davep/textual-canvas/pull/7))
+- Made all `color` parameters for drawing methods optional, defaulting to
+  the current "pen colour". ([#7](https://github.com/davep/textual-canvas/pull/7))
+- Added `set_pen`. ([#7](https://github.com/davep/textual-canvas/pull/7))
+
 ## v0.2.0
 
 **Released: 2023-07-16**

@@ -19,8 +19,12 @@ class CanvasTestApp(App[None]):
     CSS = """
     Canvas {
         border: round green;
-        width: 1fr;
-        height: 1fr;
+        background: $panel;
+        color: grey;
+        width: auto;
+        height: auto;
+        max-width: 1fr;
+        max-height: 1fr;
     }
     """
 
@@ -31,21 +35,21 @@ class CanvasTestApp(App[None]):
     ]
 
     def compose(self) -> ComposeResult:
-        yield Canvas(120, 120, Color(30, 40, 50))
+        yield Canvas(120, 120)
 
     @on(Mount)
     def its_all_dark(self) -> None:
         """Set up the display once the DOM is available."""
         canvas = self.query_one(Canvas)
 
-        canvas.draw_line(60, 40, 90, 80, Color(128, 128, 128))
-        canvas.draw_line(60, 40, 30, 80, Color(128, 128, 128))
-        canvas.draw_line(30, 80, 90, 80, Color(128, 128, 128))
+        canvas.draw_line(60, 40, 90, 80)
+        canvas.draw_line(60, 40, 30, 80)
+        canvas.draw_line(30, 80, 90, 80)
 
         canvas.draw_line(0, 70, 48, 55, Color(255, 255, 255))
 
         for n in range(52, 59):
-            canvas.draw_line(48, 55, 58, n, Color(128, 128, 128))
+            canvas.draw_line(48, 55, 58, n)
 
         canvas.draw_line(70, 52, 119, 57, Color(255, 0, 0))
         canvas.draw_line(71, 53, 119, 58, Color(255, 165, 0))

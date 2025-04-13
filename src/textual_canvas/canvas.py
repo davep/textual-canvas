@@ -53,7 +53,8 @@ class Canvas(ScrollView, can_focus=True):
         self,
         width: int,
         height: int,
-        color: Color = Color(0, 0, 0),
+        canvas_color: Color | None = None,
+        pen_color: Color | None = None,
         name: str | None = None,
         id: str | None = None,  # pylint:disable=redefined-builtin
         classes: str | None = None,
@@ -64,38 +65,41 @@ class Canvas(ScrollView, can_focus=True):
         Args:
             width: The width of the canvas.
             height: The height of the canvas.
-            color: An optional default colour for the canvas.
+            canvas_color: An optional default colour for the canvas.
+            pen_color: The optional default colour for the pen.
             name: The name of the canvas widget.
             id: The ID of the canvas widget in the DOM.
             classes: The CSS classes of the canvas widget.
             disabled: Whether the canvas widget is disabled or not.
         """
-        # Pass the normal Textual widget stuff up the chain.
         super().__init__(name=name, id=id, classes=classes, disabled=disabled)
-
-        # Remember main canvas parameters.
         self._width = width
+        """The widget of the canvas."""
         self._height = height
-        self._colour = color
-
-        # Start with an empty canvas.
-        self._blank_canvas()
-
-        # Used as a source of "there's nothing here" for the last row in a
-        # canvas if we're likely to go off the end.
-        #
-        # TODO: Rather than use the default colour of the canvas, perhaps
-        # take the background color of the widget itself?
-        self._the_void = [color for _ in range(width)]
-
-        # Ensure we can scroll around the canvas.
+        """The height of the canvas."""
+        self._canvas_colour = canvas_color
+        """The background colour of the canvas itself."""
+        self._pen_colour = pen_color
+        """The default pen colour, used when drawing pixels."""
+        self._the_void: list[Color] = []
+        """The final empty line if the last row isn't part of the canvas."""
+        self._canvas: list[list[Color]] = []
+        """The canvas itself."""
         self.virtual_size = Size(width, ceil(height / 2))
 
-    def _blank_canvas(self) -> None:
-        """Set the canvas to a blank canvas."""
-        self._canvas = [
-            [self._colour for _ in range(self.width)] for _ in range(self.height)
-        ]
+    @property
+    def _blank_canvas(self) -> list[list[Color]]:
+        """A blank canvas."""
+        canvas_colour = self._canvas_colour or self.styles.background
+        return [[canvas_colour for _ in range(self.width)] for _ in range(self.height)]
+
+    def on_mount(self) -> None:
+        """Initialise the widget once the DOM is mounted."""
+        # Now that we know the background colour, because CSS will have been
+        # applied, we can create the void line.
+        self._the_void = [self.styles.background for _ in range(self._width)]
+        # For the same reason, it's now safe to actually create the canvas.
+        self._canvas = self._blank_canvas
 
     @property
     def width(self) -> int:
@@ -148,12 +152,31 @@ class Canvas(ScrollView, can_focus=True):
             another color is provided.)
         """
         if color is not None:
-            self._colour = color
-        self._blank_canvas()
+            self._canvas_colour = color
+        self._canvas = self._blank_canvas
         self.refresh()
         return self
 
-    def set_pixels(self, locations: Iterable[tuple[int, int]], color: Color) -> Self:
+    def set_pen(self, color: Color | None) -> Self:
+        """Set the default pen colour.
+
+        Args:
+            color: A colour to use by default when drawing a pixel.
+
+        Returns:
+            The canvas.
+
+        Note:
+            Setting the colour to [`None`][None] specifies that the widget's
+            currently-styled [`color`][textual.widget.Widget.styles.color]
+            should be used.
+        """
+        self._pen_colour = color
+        return self
+
+    def set_pixels(
+        self, locations: Iterable[tuple[int, int]], color: Color | None = None
+    ) -> Self:
         """Set the colour of a collection of pixels on the canvas.
 
         Args:
@@ -169,13 +192,14 @@ class Canvas(ScrollView, can_focus=True):
         Note:
             The origin of the canvas is the top left corner.
         """
+        color = color or self._pen_colour or self.styles.color
         for x, y in locations:
             self._pixel_check(x, y)
             self._canvas[y][x] = color
         self.refresh()
         return self
 
-    def set_pixel(self, x: int, y: int, color: Color) -> Self:
+    def set_pixel(self, x: int, y: int, color: Color | None = None) -> Self:
         """Set the colour of a specific pixel on the canvas.
 
         Args:
@@ -189,7 +213,7 @@ class Canvas(ScrollView, can_focus=True):
         Note:
             The origin of the canvas is the top left corner.
         """
-        return self.set_pixels(((x, y),), color)
+        return self.set_pixels(((x, y),), self._pen_colour if color is None else color)
 
     def get_pixel(self, x: int, y: int) -> Color:
         """Get the pixel at the given location.
@@ -210,7 +234,9 @@ class Canvas(ScrollView, can_focus=True):
         self._pixel_check(x, y)
         return self._canvas[y][x]
 
-    def draw_line(self, x0: int, y0: int, x1: int, y1: int, color: Color) -> Self:
+    def draw_line(
+        self, x0: int, y0: int, x1: int, y1: int, color: Color | None = None
+    ) -> Self:
         """Draw a line between two points.
 
         Args:
@@ -257,7 +283,7 @@ class Canvas(ScrollView, can_focus=True):
         return self.set_pixels(pixels, color)
 
     def draw_rectangle(
-        self, x: int, y: int, width: int, height: int, color: Color
+        self, x: int, y: int, width: int, height: int, color: Color | None = None
     ) -> Self:
         """Draw a rectangle.
 
@@ -296,7 +322,7 @@ class Canvas(ScrollView, can_focus=True):
         return ((x, y), (y, x), (-x, y), (-y, x), (x, -y), (y, -x), (-x, -y), (-y, -x))
 
     def draw_circle(
-        self, center_x: int, center_y: int, radius: int, color: Color
+        self, center_x: int, center_y: int, radius: int, color: Color | None = None
     ) -> Self:
         """Draw a circle
 
