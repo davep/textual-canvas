@@ -8,13 +8,13 @@ sense to spin it out into its own general-purpose library.
 
 === "Textual Canvas Example"
 
-    ```{.textual path="docs/examples/prism.py" lines=62 columns=122}
+    ```{.textual path="docs/examples/mandelbrot.py" lines=45 columns=120}
     ```
 
-=== "prism.py"
+=== "mandelbrot.py"
 
     ```py
-    --8<-- "docs/examples/prism.py"
+    --8<-- "docs/examples/mandelbrot.py"
     ```
 
 The widget is based around the use of half block characters; this has two
