@@ -168,4 +168,20 @@ pixels of the same colour at once. For example:
     --8<-- "docs/examples/set_pixels.py"
     ```
 
+### Drawing a line
+
+Use [`draw_line`][textual_canvas.canvas.Canvas.draw_line] to draw a line on
+the canvas. For example:
+
+=== "Drawing a line"
+
+    ```{.textual path="docs/examples/draw_line.py"}
+    ```
+
+=== "draw_line.py"
+
+    ```python
+    --8<-- "docs/examples/draw_line.py"
+    ```
+
 [//]: # (guide.md ends here)
