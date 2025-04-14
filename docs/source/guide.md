@@ -205,4 +205,20 @@ a rectangle on the canvas. For example:
     --8<-- "docs/examples/draw_rectangle.py"
     ```
 
+### Drawing a circle
+
+Use [`draw_circle`][textual_canvas.canvas.Canvas.draw_circle] to draw a
+circle on the canvas. For example:
+
+=== "Drawing a circle"
+
+    ```{.textual path="docs/examples/draw_circle.py"}
+    ```
+
+=== "draw_circle.py"
+
+    ```python
+    --8<-- "docs/examples/draw_circle.py"
+    ```
+
 [//]: # (guide.md ends here)
