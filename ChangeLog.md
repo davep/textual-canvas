@@ -18,6 +18,7 @@
   the current "pen colour". ([#7](https://github.com/davep/textual-canvas/pull/7))
 - Added `set_pen`. ([#7](https://github.com/davep/textual-canvas/pull/7))
 - Fixed off-by-one issue with `draw_rectangle`.
+  ([#10](https://github.com/davep/textual-canvas/pull/10))
 
 ## v0.2.0
 
