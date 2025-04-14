@@ -189,4 +189,20 @@ the canvas. For example:
     --8<-- "docs/examples/draw_line.py"
     ```
 
+### Drawing a rectangle
+
+Use [`draw_rectangle`][textual_canvas.canvas.Canvas.draw_rectangle] to draw
+a rectangle on the canvas. For example:
+
+=== "Drawing a rectangle"
+
+    ```{.textual path="docs/examples/draw_rectangle.py"}
+    ```
+
+=== "draw_rectangle.py"
+
+    ```python
+    --8<-- "docs/examples/draw_rectangle.py"
+    ```
+
 [//]: # (guide.md ends here)
