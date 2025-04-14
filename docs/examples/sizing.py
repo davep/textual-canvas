@@ -22,6 +22,10 @@ class CanvasSizingApp(App[None]):
         yield Canvas(20, 20, Color(128, 0, 128), id="smaller")
         yield Canvas(60, 60, Color(128, 0, 128), id="bigger")
 
+    def on_mount(self) -> None:
+        self.query_one("#smaller").border_title = "Widget > Canvas"
+        self.query_one("#bigger").border_title = "Canvas > Widget"
+
 
 if __name__ == "__main__":
     CanvasSizingApp().run()
