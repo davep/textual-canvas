@@ -16,7 +16,7 @@ class DrawRectangleApp(App[None]):
         yield Canvas(30, 30, Color.parse("cornflowerblue"))
 
     def on_mount(self) -> None:
-        self.query_one(Canvas).draw_rectangle(2, 2, 10, 10)
+        self.query_one(Canvas).draw_rectangle(2, 2, 26, 26)
 
 
 if __name__ == "__main__":
