@@ -122,6 +122,11 @@ widget.
 
 The canvas widget provides a number of methods for drawing on it.
 
+!!! note
+
+    All coordinates used when drawing are relative to the top left corner of
+    the canvas.
+
 ### Drawing a single pixel
 
 Use [`set_pixel`][textual_canvas.canvas.Canvas.set_pixel] to set the colour
