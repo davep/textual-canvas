@@ -35,9 +35,9 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/davep/textual-canvas"
+Homepage = "https://textual-canvas.davep.dev/"
 Repository = "https://github.com/davep/textual-canvas"
-Documentation = "https://github.com/davep/textual-canvas"
+Documentation = "https://textual-canvas.davep.dev/"
 Source = "https://github.com/davep/textual-canvas"
 Issues = "https://github.com/davep/textual-canvas/issues"
 Discussions = "https://github.com/davep/textual-canvas/discussions"
