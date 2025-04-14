@@ -221,4 +221,13 @@ circle on the canvas. For example:
     --8<-- "docs/examples/draw_circle.py"
     ```
 
+## Further help
+
+You can find more detailed documentation of the API [in the next
+section](canvas.md). If you still have questions or have ideas for
+improvements please feel free to chat to me [in GitHub
+discussions](https://github.com/davep/textual-canvas/discussions); if you
+think you've found a problem, please feel free to [raise an
+issue](https://github.com/davep/textual-canvas/issues).
+
 [//]: # (guide.md ends here)
