@@ -29,7 +29,7 @@ from typing_extensions import Self
 
 ##############################################################################
 class CanvasError(Exception):
-    """Type of errors raised by the `Canvas` widget."""
+    """Type of errors raised by the [`Canvas`][textual_canvas.canvas.Canvas] widget."""
 
 
 ##############################################################################
