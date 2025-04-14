@@ -8,6 +8,8 @@ nav:
       - guide.md
   - Library Contents:
       - canvas.md
+  - Change Log: changelog.md
+  - Licence: licence.md
 
 watch:
   - src/textual_canvas
