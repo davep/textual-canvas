@@ -17,6 +17,7 @@
 - Made all `color` parameters for drawing methods optional, defaulting to
   the current "pen colour". ([#7](https://github.com/davep/textual-canvas/pull/7))
 - Added `set_pen`. ([#7](https://github.com/davep/textual-canvas/pull/7))
+- Fixed off-by-one issue with `draw_rectangle`.
 
 ## v0.2.0
 
