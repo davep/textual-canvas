@@ -152,5 +152,20 @@ we can set pixels to specific colours:
     ```python
     --8<-- "docs/examples/set_pixel_colour.py"
     ```
+### Drawing multiple pixels
+
+Use [`set_pixels`][textual_canvas.canvas.Canvas.set_pixels] to draw multiple
+pixels of the same colour at once. For example:
+
+=== "Drawing multiple pixels"
+
+    ```{.textual path="docs/examples/set_pixels.py"}
+    ```
+
+=== "set_pixels.py"
+
+    ```python
+    --8<-- "docs/examples/set_pixels.py"
+    ```
 
 [//]: # (guide.md ends here)
