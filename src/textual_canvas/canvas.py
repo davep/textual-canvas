@@ -42,11 +42,6 @@ class Canvas(ScrollView, can_focus=True):
     whole cell as a simple pixel.
 
     The origin of the canvas is the top left corner.
-
-    NOTE: At the moment this is coded in a very simple way, mainly to help
-    decide on the API it will make available (which I intend to be as simple
-    as possible). Little to no thought has been given to performance. First
-    I want to get it right, then I want to get it fast.
     """
 
     def __init__(
@@ -56,7 +51,7 @@ class Canvas(ScrollView, can_focus=True):
         canvas_color: Color | None = None,
         pen_color: Color | None = None,
         name: str | None = None,
-        id: str | None = None,  # pylint:disable=redefined-builtin
+        id: str | None = None,
         classes: str | None = None,
         disabled: bool = False,
     ):
