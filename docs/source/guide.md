@@ -118,4 +118,39 @@ widget.
     widget's `color` differently later on, the canvas' pen colour **will
     not change accordingly**.
 
+## Drawing on the canvas
+
+The canvas widget provides a number of methods for drawing on it.
+
+### Drawing a single pixel
+
+Use [`set_pixel`][textual_canvas.canvas.Canvas.set_pixel] to set the colour
+of a single pixel on the canvas. For example:
+
+=== "Drawing a single pixel"
+
+    ```{.textual path="docs/examples/set_pixel.py"}
+    ```
+
+=== "set_pixel.py"
+
+    ```python
+    --8<-- "docs/examples/set_pixel.py"
+    ```
+
+That example is using the default pen colour, which in turn is defaulting
+the widget's [`color`](https://textual.textualize.io/styles/color/). Instead
+we can set pixels to specific colours:
+
+=== "Drawing pixels with specific colours"
+
+    ```{.textual path="docs/examples/set_pixel_colour.py"}
+    ```
+
+=== "set_pixel_colour.py"
+
+    ```python
+    --8<-- "docs/examples/set_pixel_colour.py"
+    ```
+
 [//]: # (guide.md ends here)
