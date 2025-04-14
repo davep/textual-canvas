@@ -12,7 +12,7 @@ from textual_canvas import Canvas
 and then can be [mounted][textual.screen.Screen.mount] or
 [composed][textual.screen.Screen.compose] like any other widget.
 
-When [creating it](textual_canvas.canvas.Canvas.__init__) you provide a
+When [creating it][textual_canvas.canvas.Canvas] you provide a
 width and a height of the canvas in "pixels" Note that these values are the
 dimensions of the canvas that the "pixels" are drawn on, not the size of the
 widget; the widget itself is sized using all the normal Textual styling and

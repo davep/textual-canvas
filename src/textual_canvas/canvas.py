@@ -168,7 +168,7 @@ class Canvas(ScrollView, can_focus=True):
 
         Note:
             Setting the colour to [`None`][None] specifies that the widget's
-            currently-styled [`color`][textual.widget.Widget.styles.color]
+            currently-styled [`color`](https://textual.textualize.io/guide/styles/#styles-object)
             should be used.
         """
         self._pen_colour = color
