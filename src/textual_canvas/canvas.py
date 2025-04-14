@@ -300,6 +300,10 @@ class Canvas(ScrollView, can_focus=True):
         Note:
             The origin of the canvas is the top left corner.
         """
+        if width < 1 or height < 1:
+            return self
+        width -= 1
+        height -= 1
         with self.app.batch_update():
             return (
                 self.draw_line(x, y, x + width, y, color)
