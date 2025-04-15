@@ -66,6 +66,11 @@ class Canvas(ScrollView, can_focus=True):
             id: The ID of the canvas widget in the DOM.
             classes: The CSS classes of the canvas widget.
             disabled: Whether the canvas widget is disabled or not.
+
+        If `canvas_color` is omitted, the widget's `background` styling will
+        be used.
+
+        If `pen_color` is omitted, the widget's `color` styling will be used.
         """
         super().__init__(name=name, id=id, classes=classes, disabled=disabled)
         self._width = width
@@ -76,25 +81,16 @@ class Canvas(ScrollView, can_focus=True):
         """The background colour of the canvas itself."""
         self._pen_colour = pen_color
         """The default pen colour, used when drawing pixels."""
-        self._the_void: list[Color] = []
-        """The final empty line if the last row isn't part of the canvas."""
-        self._canvas: list[list[Color]] = []
+        self._canvas: list[list[Color | None]] = self._blank_canvas
         """The canvas itself."""
         self.virtual_size = Size(width, ceil(height / 2))
 
     @property
-    def _blank_canvas(self) -> list[list[Color]]:
+    def _blank_canvas(self) -> list[list[Color | None]]:
         """A blank canvas."""
-        canvas_colour = self._canvas_colour or self.styles.background
-        return [[canvas_colour for _ in range(self.width)] for _ in range(self.height)]
-
-    def on_mount(self) -> None:
-        """Initialise the widget once the DOM is mounted."""
-        # Now that we know the background colour, because CSS will have been
-        # applied, we can create the void line.
-        self._the_void = [self.styles.background for _ in range(self._width)]
-        # For the same reason, it's now safe to actually create the canvas.
-        self._canvas = self._blank_canvas
+        return [
+            [self._canvas_colour for _ in range(self.width)] for _ in range(self.height)
+        ]
 
     @property
     def width(self) -> int:
@@ -105,6 +101,10 @@ class Canvas(ScrollView, can_focus=True):
     def height(self) -> int:
         """The height of the canvas in 'pixels'."""
         return self._height
+
+    def notify_style_update(self) -> None:
+        self.refresh()
+        return super().notify_style_update()
 
     def _outwith_the_canvas(self, x: int, y: int) -> bool:
         """Is the location outwith the canvas?
@@ -145,12 +145,13 @@ class Canvas(ScrollView, can_focus=True):
             making the canvas is used, this in turn becomes the new default
             color (and will then be used for subsequent clears, unless
             another color is provided).
+
+            Explicitly setting the colour to [`None`][None] will set the
+            canvas colour to whatever the widget's `background` colour is.
         """
-        if color is not None:
-            self._canvas_colour = color
+        self._canvas_colour = color or self._canvas_colour
         self._canvas = self._blank_canvas
-        self.refresh()
-        return self
+        return self.refresh()
 
     def set_pen(self, color: Color | None) -> Self:
         """Set the default pen colour.
@@ -209,12 +210,7 @@ class Canvas(ScrollView, can_focus=True):
         Note:
             The origin of the canvas is the top left corner.
         """
-        color = self._canvas_colour or self.styles.background
-        for x, y in locations:
-            self._pixel_check(x, y)
-            self._canvas[y][x] = color
-        self.refresh()
-        return self
+        return self.set_pixels(locations, self._canvas_colour)
 
     def set_pixel(self, x: int, y: int, color: Color | None = None) -> Self:
         """Set the colour of a specific pixel on the canvas.
@@ -264,7 +260,7 @@ class Canvas(ScrollView, can_focus=True):
             The origin of the canvas is the top left corner.
         """
         self._pixel_check(x, y)
-        return self._canvas[y][x]
+        return self._canvas[y][x] or self.styles.background
 
     def draw_line(
         self, x0: int, y0: int, x1: int, y1: int, color: Color | None = None
@@ -431,7 +427,7 @@ class Canvas(ScrollView, can_focus=True):
             y: The line to render.
 
         Returns:
-            A `Strip` that is the line to render.
+            A [`Strip`][textual.strip.Strip] that is the line to render.
         """
 
         # Get where we're scrolled to.
@@ -446,24 +442,42 @@ class Canvas(ScrollView, can_focus=True):
             # Yup. Don't bother drawing anything.
             return Strip([])
 
+        # Set up the two main background colours we need.
+        background_colour = self.styles.background
+        canvas_colour = self._canvas_colour or background_colour
+
+        # Reduce some attribute lookups.
+        height = self._height
+        width = self._width
+        canvas = self._canvas
+
         # Now, the bottom line is easy enough to work out.
         bottom_line = top_line + 1
 
         # Get the pixel values for the top line.
-        top_pixels = self._canvas[top_line]
+        top_pixels = canvas[top_line]
 
-        # It's possible that the bottom line might be in the void, so...
+        # It's possible that the bottom line might be outwith the canvas
+        # itself; so here we set the bottom line to the widget's background
+        # colour if it is, otherwise we use the line form the canvas.
         bottom_pixels = (
-            self._the_void if bottom_line >= self.height else self._canvas[bottom_line]
+            [background_colour for _ in range(width)]
+            if bottom_line >= height
+            else canvas[bottom_line]
         )
 
         # At this point we know what colours we're going to be mashing
         # together into the terminal line we're drawing. So let's get to it.
+        # Note that in every case, if the colour we have is `None` that
+        # means we're using the canvas colour.
         return (
             Strip(
                 [
-                    self._segment_of(top_pixels[pixel], bottom_pixels[pixel])
-                    for pixel in range(self.width)
+                    self._segment_of(
+                        top_pixels[pixel] or canvas_colour,
+                        bottom_pixels[pixel] or canvas_colour,
+                    )
+                    for pixel in range(width)
                 ]
             )
             .crop(scroll_x, scroll_x + self.scrollable_content_region.width)

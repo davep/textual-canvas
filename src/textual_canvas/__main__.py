@@ -29,9 +29,9 @@ class CanvasTestApp(App[None]):
     """
 
     BINDINGS = [
-        ("r", "clear(255, 0, 0)"),
-        ("g", "clear(0, 255, 0)"),
-        ("b", "clear(0, 0, 255)"),
+        ("r", "canvas(255, 0, 0)"),
+        ("g", "canvas(0, 255, 0)"),
+        ("b", "canvas(0, 0, 255)"),
     ]
 
     def compose(self) -> ComposeResult:
@@ -61,10 +61,9 @@ class CanvasTestApp(App[None]):
 
         canvas.focus()
 
-    def action_clear(self, red: int, green: int, blue: int) -> None:
-        """Handle the clear keyboard action."""
-        self.query_one(Canvas).clear(Color(red, green, blue))
-        self.its_all_dark()
+    def action_canvas(self, red: int, green: int, blue: int) -> None:
+        """Change the canvas colour."""
+        self.query_one(Canvas).styles.background = Color(red, green, blue)
 
 
 if __name__ == "__main__":
