@@ -206,6 +206,22 @@ circle on the canvas. For example:
     --8<-- "docs/examples/draw_circle.py"
     ```
 
+### Clearing a pixel
+
+Use [`clear_pixel`][textual_canvas.Canvas.clear_pixel] to set a pixel's
+colour to the canvas' colour. For example:
+
+=== "Clearing a pixel"
+
+    ```{.textual path="docs/examples/clear_pixel.py"}
+    ```
+
+=== "clear_pixel.py"
+
+    ```python
+    --8<-- "docs/examples/clear_pixel.py"
+    ```
+
 ## Further help
 
 You can find more detailed documentation of the API [in the next
