@@ -55,10 +55,9 @@ style this with CSS just as you always would. But the canvas itself -- the
 area that you'll be drawing in inside the widget -- can have its own
 background colour.
 
-By default the canvas background colour will be set to the widget's
-background colour; but you can pass
-[`canvas_color`][textual_canvas.canvas.Canvas] as a parameter to change
-this.
+By default the canvas background colour will be the widget's background
+colour; but you can pass [`canvas_color`][textual_canvas.canvas.Canvas] as a
+parameter to change this.
 
 To illustrate, here is a `Canvas` widget where no background colour is
 specified, so the canvas background and the widget background are the same:
@@ -96,13 +95,6 @@ background colour when we create it:
 
     1. Note how `Canvas` is given its own background colour.
 
-!!! note
-
-    The defaulting of the canvas background to the widget's background is
-    something that only happens when the widget is mounted. If you style the
-    widget's background differently later on, the canvas' background **will
-    not change accordingly**.
-
 #### The pen colour
 
 The `Canvas` widget has a "pen" colour; any time a drawing operation is
@@ -110,13 +102,6 @@ performed, if no colour is given to the method, the "pen" colour is used. By
 default that colour is taken from the
 [`color`](https://textual.textualize.io/styles/color/) styling of the
 widget.
-
-!!! note
-
-    The defaulting of the pen colour to the widget's colour is
-    something that only happens when the widget is mounted. If you style the
-    widget's `color` differently later on, the canvas' pen colour **will
-    not change accordingly**.
 
 ## Drawing on the canvas
 
