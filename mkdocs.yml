@@ -1,0 +1,103 @@
+site_name: textual-canvas
+docs_dir: docs/source
+repo_url: https://github.com/davep/textual-canvas
+
+nav:
+  - Guide:
+      - index.md
+      - guide.md
+  - Library Contents:
+      - canvas.md
+  - Change Log: changelog.md
+  - Licence: licence.md
+
+watch:
+  - src/textual_canvas
+  - docs/examples
+
+markdown_extensions:
+  - admonition
+  - pymdownx.snippets
+  - markdown.extensions.attr_list
+  - pymdownx.superfences:
+      custom_fences:
+        - name: textual
+          class: textual
+          format: !!python/name:textual._doc.format_svg
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  search:
+  autorefs:
+  mkdocstrings:
+    default_handler: python
+    enable_inventory: true
+    handlers:
+      python:
+        inventories:
+          - https://docs.python.org/3/objects.inv
+          - https://textual.textualize.io/objects.inv
+        options:
+          filters:
+            - "!^_"
+            - "^__.+__$"
+            - "!^on_mount$"
+            - "!^compose$"
+            - "!^render_line"
+          modernize_annotations: false
+          show_symbol_type_heading: true
+          show_symbol_type_toc: true
+          show_signature_annotations: false
+          separate_signature: true
+          signature_crossrefs: true
+          merge_init_into_class: true
+          parameter_headings: true
+          show_root_heading: false
+          docstring_options:
+            ignore_init_summary: true
+          show_source: false
+
+theme:
+  name: material
+  icon:
+    logo: fontawesome/solid/paintbrush
+  features:
+    - navigation.tabs
+    - navigation.indexes
+    - navigation.tabs.sticky
+    - navigation.footer
+    - content.code.annotate
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      accent: purple
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/davep
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/user/davepearson/
+    - icon: fontawesome/brands/mastodon
+      link: https://fosstodon.org/@davep
+    - icon: fontawesome/brands/bluesky
+      link: https://bsky.app/profile/davep.org
+    - icon: fontawesome/brands/threads
+      link: https://www.threads.net/@davepdotorg
+    - icon: fontawesome/brands/youtube
+      link: https://www.youtube.com/@DavePearson
+    - icon: fontawesome/brands/steam
+      link: https://steamcommunity.com/id/davepdotorg
+
+### mkdocs.yml ends here

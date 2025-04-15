@@ -1,13 +1,14 @@
-lib    := textual_canvas
-src    := src/
-run    := rye run
-test   := rye test
-python := $(run) python
-lint   := rye lint -- --select I
-fmt    := rye fmt
-mypy   := $(run) mypy
-mkdocs := $(run) mkdocs
-spell  := $(run) codespell
+lib      := textual_canvas
+src      := src/
+examples := docs/examples
+run      := rye run
+test     := rye test
+python   := $(run) python
+lint     := rye lint -- --select I
+fmt      := rye fmt
+mypy     := $(run) mypy
+mkdocs   := $(run) mkdocs
+spell    := $(run) codespell
 
 ##############################################################################
 # Local "interactive testing" of the code.
@@ -42,23 +43,23 @@ resetup: realclean		# Recreate the virtual environment from scratch
 # Checking/testing/linting/etc.
 .PHONY: lint
 lint:				# Check the code for linting issues
-	$(lint) $(src)
+	$(lint) $(src) $(examples)
 
 .PHONY: codestyle
 codestyle:			# Is the code formatted correctly?
-	$(fmt) --check $(src)
+	$(fmt) --check $(src) $(examples)
 
 .PHONY: typecheck
 typecheck:			# Perform static type checks with mypy
-	$(mypy) --scripts-are-modules $(src)
+	$(mypy) --scripts-are-modules $(src) $(examples)
 
 .PHONY: stricttypecheck
 stricttypecheck:	        # Perform a strict static type checks with mypy
-	$(mypy) --scripts-are-modules --strict $(src)
+	$(mypy) --scripts-are-modules --strict $(src) $(examples)
 
 .PHONY: spellcheck
 spellcheck:			# Spell check the code
-	$(spell) *.md $(src) $(docs) $(tests)
+	$(spell) *.md $(src) $(docs)
 
 .PHONY: checkall
 checkall: spellcheck codestyle lint stricttypecheck # Check all the things
@@ -103,18 +104,25 @@ repl:				# Start a Python REPL in the venv.
 
 .PHONY: delint
 delint:			# Fix linting issues.
-	$(lint) --fix $(src)
+	$(lint) --fix $(src) $(examples)
 
 .PHONY: pep8ify
 pep8ify:			# Reformat the code to be as PEP8 as possible.
-	$(fmt) $(src)
+	$(fmt) $(src) $(examples)
 
 .PHONY: tidy
 tidy: delint pep8ify		# Tidy up the code, fixing lint and format issues.
 
-.PHONY: clean
-clean:				# Clean the build directories
+.PHONY: clean-packaging
+clean-packaging:		# Clean the package building files
 	rm -rf dist
+
+.PHONY: clean-docs
+clean-docs:			# Clean up the documentation building files
+	rm -rf site .screenshot_cache
+
+.PHONY: clean
+clean: clean-packaging clean-docs # Clean the build directories
 
 .PHONY: realclean
 realclean: clean		# Clean the venv and build directories

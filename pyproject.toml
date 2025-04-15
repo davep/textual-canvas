@@ -35,9 +35,9 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/davep/textual-canvas"
+Homepage = "https://textual-canvas.davep.dev/"
 Repository = "https://github.com/davep/textual-canvas"
-Documentation = "https://github.com/davep/textual-canvas"
+Documentation = "https://textual-canvas.davep.dev/"
 Source = "https://github.com/davep/textual-canvas"
 Issues = "https://github.com/davep/textual-canvas/issues"
 Discussions = "https://github.com/davep/textual-canvas/discussions"
@@ -55,6 +55,8 @@ dev-dependencies = [
     "mypy>=1.15.0",
     "ruff>=0.11.5",
     "codespell>=2.4.1",
+    "mkdocs-material>=9.6.11",
+    "mkdocstrings[python]>=0.29.1",
 ]
 
 [tool.hatch.metadata]

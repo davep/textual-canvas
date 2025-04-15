@@ -29,7 +29,7 @@ from typing_extensions import Self
 
 ##############################################################################
 class CanvasError(Exception):
-    """Type of errors raised by the `Canvas` widget."""
+    """Type of errors raised by the [`Canvas`][textual_canvas.canvas.Canvas] widget."""
 
 
 ##############################################################################
@@ -42,11 +42,6 @@ class Canvas(ScrollView, can_focus=True):
     whole cell as a simple pixel.
 
     The origin of the canvas is the top left corner.
-
-    NOTE: At the moment this is coded in a very simple way, mainly to help
-    decide on the API it will make available (which I intend to be as simple
-    as possible). Little to no thought has been given to performance. First
-    I want to get it right, then I want to get it fast.
     """
 
     def __init__(
@@ -56,7 +51,7 @@ class Canvas(ScrollView, can_focus=True):
         canvas_color: Color | None = None,
         pen_color: Color | None = None,
         name: str | None = None,
-        id: str | None = None,  # pylint:disable=redefined-builtin
+        id: str | None = None,
         classes: str | None = None,
         disabled: bool = False,
     ):
@@ -147,9 +142,9 @@ class Canvas(ScrollView, can_focus=True):
 
         Note:
             If the color isn't provided, then the color used when first
-            making the canvas is used, this in turn because the new default
+            making the canvas is used, this in turn becomes the new default
             color (and will then be used for subsequent clears, unless
-            another color is provided.)
+            another color is provided).
         """
         if color is not None:
             self._canvas_colour = color
@@ -168,7 +163,7 @@ class Canvas(ScrollView, can_focus=True):
 
         Note:
             Setting the colour to [`None`][None] specifies that the widget's
-            currently-styled [`color`][textual.widget.Widget.styles.color]
+            currently-styled [`color`](https://textual.textualize.io/guide/styles/#styles-object)
             should be used.
         """
         self._pen_colour = color
