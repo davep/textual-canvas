@@ -36,12 +36,12 @@ def mandelbrot(x: float, y: float) -> int:
     return 0
 
 
-def frange(r_from: float, r_to: float, size: int) -> Iterator[float]:
+def frange(r_from: float, r_to: float, size: int) -> Iterator[tuple[int, float]]:
     steps = 0
     step = (r_to - r_from) / size
     n = r_from
     while n < r_to and steps < size:
-        yield n
+        yield steps, n
         n += step
         steps += 1
 
@@ -51,16 +51,16 @@ class MandelbrotApp(App[None]):
         yield Canvas(120, 90)
 
     def on_mount(self) -> None:
-        canvas = self.query_one(Canvas)
-        for x_pixel, x_point in enumerate(frange(-2.5, 1.5, canvas.width)):
-            for y_pixel, y_point in enumerate(frange(-1.5, 1.5, canvas.height)):
-                canvas.set_pixel(
-                    x_pixel,
-                    y_pixel,
-                    BLUE_BROWN[value % 16]
-                    if (value := mandelbrot(x_point, y_point))
-                    else Color(0, 0, 0),
-                )
+        with (canvas := self.query_one(Canvas)).batch_refresh():
+            for x_pixel, x_point in frange(-2.5, 1.5, canvas.width):
+                for y_pixel, y_point in frange(-1.5, 1.5, canvas.height):
+                    canvas.set_pixel(
+                        x_pixel,
+                        y_pixel,
+                        BLUE_BROWN[value % 16]
+                        if (value := mandelbrot(x_point, y_point))
+                        else Color(0, 0, 0),
+                    )
 
 
 if __name__ == "__main__":
