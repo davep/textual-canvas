@@ -23,6 +23,8 @@
   ([#11](https://github.com/davep/textual-canvas/pull/11))
 - Added `Canvas.clear_pixel`.
   ([#11](https://github.com/davep/textual-canvas/pull/11))
+- Added an optional `refresh` parameter to all drawing methods.
+- Added a `Canvas.batch_refresh` context manager.
 
 ## v0.2.0
 

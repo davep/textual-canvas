@@ -6,9 +6,10 @@ from __future__ import annotations
 
 ##############################################################################
 # Python imports.
+from contextlib import contextmanager
 from functools import lru_cache
 from math import ceil
-from typing import Iterable
+from typing import Generator, Iterable
 
 ##############################################################################
 # Rich imports.
@@ -83,6 +84,8 @@ class Canvas(ScrollView, can_focus=True):
         """The default pen colour, used when drawing pixels."""
         self._canvas: list[list[Color | None]] = self._blank_canvas
         """The canvas itself."""
+        self._refreshing = True
+        """Are we refreshing by default?"""
         self.virtual_size = Size(width, ceil(height / 2))
 
     @property
@@ -105,6 +108,41 @@ class Canvas(ScrollView, can_focus=True):
     def notify_style_update(self) -> None:
         self.refresh()
         return super().notify_style_update()
+
+    @contextmanager
+    def batch_refresh(self) -> Generator[None, None, None]:
+        """A context manager that suspends all calls to `refresh` until the end of the batch.
+
+        Ordinarily [`set_pixels`][textual_canvas.canvas.Canvas.set_pixels]
+        will call [`refresh`][textual.widget.Widget.refresh] once it has
+        updated all of the pixels it has been given. Sometimes you may want
+        to perform a number of draw operations and having `refresh` called
+        between each one would be inefficient given you've not drawing.
+
+        Use this context manager to batch up your drawing operations.
+
+        Example:
+            ```python
+            canvas = self.query_one(Canvas)
+            with canvas.batch_refresh():
+                canvas.draw_line(10, 10, 10, 20)
+                canvas.draw_line(10, 20, 20, 20)
+                canvas.draw_line(20, 20, 20, 10)
+                canvas.draw_line(20, 10, 10, 10)
+            ```
+
+        Note:
+            All drawing methods have a `refresh` parameter. If that is set
+            to [`True`][True] in any of your calls those calls will still
+            force a refresh.
+        """
+        refreshing = self._refreshing
+        try:
+            self._refreshing = False
+            yield
+        finally:
+            self._refreshing = refreshing
+            self.refresh()
 
     def _outwith_the_canvas(self, x: int, y: int) -> bool:
         """Is the location outwith the canvas?
@@ -171,13 +209,17 @@ class Canvas(ScrollView, can_focus=True):
         return self
 
     def set_pixels(
-        self, locations: Iterable[tuple[int, int]], color: Color | None = None
+        self,
+        locations: Iterable[tuple[int, int]],
+        color: Color | None = None,
+        refresh: bool | None = None,
     ) -> Self:
         """Set the colour of a collection of pixels on the canvas.
 
         Args:
             locations: An iterable of tuples of x and y location.
             color: The color to set the pixel to.
+            refresh: Should the widget be refreshed?
 
         Returns:
             The canvas.
@@ -192,14 +234,18 @@ class Canvas(ScrollView, can_focus=True):
         for x, y in locations:
             self._pixel_check(x, y)
             self._canvas[y][x] = color
-        self.refresh()
+        if self._refreshing if refresh is None else refresh:
+            self.refresh()
         return self
 
-    def clear_pixels(self, locations: Iterable[tuple[int, int]]) -> Self:
+    def clear_pixels(
+        self, locations: Iterable[tuple[int, int]], refresh: bool | None = None
+    ) -> Self:
         """Clear the colour of a collection of pixels on the canvas.
 
         Args:
             locations: An iterable of tuples of x and y location.
+            refresh: Should the widget be refreshed?
 
         Returns:
             The canvas.
@@ -210,15 +256,18 @@ class Canvas(ScrollView, can_focus=True):
         Note:
             The origin of the canvas is the top left corner.
         """
-        return self.set_pixels(locations, self._canvas_colour)
+        return self.set_pixels(locations, self._canvas_colour, refresh)
 
-    def set_pixel(self, x: int, y: int, color: Color | None = None) -> Self:
+    def set_pixel(
+        self, x: int, y: int, color: Color | None = None, refresh: bool | None = None
+    ) -> Self:
         """Set the colour of a specific pixel on the canvas.
 
         Args:
             x: The horizontal location of the pixel.
             y: The vertical location of the pixel.
             color: The color to set the pixel to.
+            refresh: Should the widget be refreshed?
 
         Raises:
             CanvasError: If the pixel location is not within the canvas.
@@ -226,14 +275,17 @@ class Canvas(ScrollView, can_focus=True):
         Note:
             The origin of the canvas is the top left corner.
         """
-        return self.set_pixels(((x, y),), self._pen_colour if color is None else color)
+        return self.set_pixels(
+            ((x, y),), self._pen_colour if color is None else color, refresh
+        )
 
-    def clear_pixel(self, x: int, y: int) -> Self:
+    def clear_pixel(self, x: int, y: int, refresh: bool | None = None) -> Self:
         """Clear the colour of a specific pixel on the canvas.
 
         Args:
             x: The horizontal location of the pixel.
             y: The vertical location of the pixel.
+            refresh: Should the widget be refreshed?
 
         Raises:
             CanvasError: If the pixel location is not within the canvas.
@@ -241,7 +293,7 @@ class Canvas(ScrollView, can_focus=True):
         Note:
             The origin of the canvas is the top left corner.
         """
-        return self.clear_pixels(((x, y),))
+        return self.clear_pixels(((x, y),), refresh)
 
     def get_pixel(self, x: int, y: int) -> Color:
         """Get the pixel at the given location.
@@ -263,7 +315,13 @@ class Canvas(ScrollView, can_focus=True):
         return self._canvas[y][x] or self.styles.background
 
     def draw_line(
-        self, x0: int, y0: int, x1: int, y1: int, color: Color | None = None
+        self,
+        x0: int,
+        y0: int,
+        x1: int,
+        y1: int,
+        color: Color | None = None,
+        refresh: bool | None = None,
     ) -> Self:
         """Draw a line between two points.
 
@@ -273,6 +331,7 @@ class Canvas(ScrollView, can_focus=True):
             x1: Horizontal location of the ending position.
             y1: Vertical location of the ending position.
             color: The color to set the pixel to.
+            refresh: Should the widget be refreshed?
 
         Returns:
             The canvas.
@@ -308,10 +367,16 @@ class Canvas(ScrollView, can_focus=True):
                 err += dx
                 y0 += sy
 
-        return self.set_pixels(pixels, color)
+        return self.set_pixels(pixels, color, refresh)
 
     def draw_rectangle(
-        self, x: int, y: int, width: int, height: int, color: Color | None = None
+        self,
+        x: int,
+        y: int,
+        width: int,
+        height: int,
+        color: Color | None = None,
+        refresh: bool | None = None,
     ) -> Self:
         """Draw a rectangle.
 
@@ -321,6 +386,7 @@ class Canvas(ScrollView, can_focus=True):
             width: The width of the rectangle.
             height: The height of the rectangle.
             color: The color to draw the rectangle in.
+            refresh: Should the widget be refreshed?
 
         Returns:
             The canvas.
@@ -332,13 +398,12 @@ class Canvas(ScrollView, can_focus=True):
             return self
         width -= 1
         height -= 1
-        with self.app.batch_update():
-            return (
-                self.draw_line(x, y, x + width, y, color)
-                .draw_line(x + width, y, x + width, y + height, color)
-                .draw_line(x + width, y + height, x, y + height, color)
-                .draw_line(x, y + height, x, y, color)
-            )
+        return (
+            self.draw_line(x, y, x + width, y, color, False)
+            .draw_line(x + width, y, x + width, y + height, color, False)
+            .draw_line(x + width, y + height, x, y + height, color, False)
+            .draw_line(x, y + height, x, y, color, refresh)
+        )
 
     @staticmethod
     def _circle_mirror(x: int, y: int) -> tuple[tuple[int, int], ...]:
@@ -354,7 +419,12 @@ class Canvas(ScrollView, can_focus=True):
         return ((x, y), (y, x), (-x, y), (-y, x), (x, -y), (y, -x), (-x, -y), (-y, -x))
 
     def draw_circle(
-        self, center_x: int, center_y: int, radius: int, color: Color | None = None
+        self,
+        center_x: int,
+        center_y: int,
+        radius: int,
+        color: Color | None = None,
+        refresh: bool | None = None,
     ) -> Self:
         """Draw a circle
 
@@ -363,6 +433,7 @@ class Canvas(ScrollView, can_focus=True):
             center_y: The vertical position of the center of the circle.
             radius: The radius of the circle.
             color: The colour to draw circle in.
+            refresh: Should the widget be refreshed?
 
         Returns:
             The canvas.
@@ -400,6 +471,7 @@ class Canvas(ScrollView, can_focus=True):
                 if not self._outwith_the_canvas(center_x + x, center_y + y)
             ],
             color,
+            refresh,
         )
 
     _CELL = "\u2584"
