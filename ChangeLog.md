@@ -1,8 +1,8 @@
 # textual-canvas ChangeLog
 
-## Unreleased
+## v0.3.0
 
-**Released: WiP**
+**Released: 2025-04-15**
 
 - Renamed `color` `__init__` parameter to `canvas_color`.
   ([#7](https://github.com/davep/textual-canvas/pull/7))
