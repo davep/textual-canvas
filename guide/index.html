@@ -575,6 +575,24 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#clearing-a-single-pixel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clearing a single pixel
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clearing-multiple-pixels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clearing multiple pixels
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -862,6 +880,24 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#clearing-a-single-pixel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clearing a single pixel
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clearing-multiple-pixels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clearing multiple pixels
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1108,10 +1144,9 @@ to start with. The <code>Canvas</code> widget, like all other Textual widgets, h
 style this with CSS just as you always would. But the canvas itself -- the
 area that you'll be drawing in inside the widget -- can have its own
 background colour.</p>
-<p>By default the canvas background colour will be set to the widget's
-background colour; but you can pass
-<a class="autorefs autorefs-internal" title="            Canvas" href="../canvas/#textual_canvas.canvas.Canvas"><code>canvas_color</code></a> as a parameter to change
-this.</p>
+<p>By default the canvas background colour will be the widget's background
+colour; but you can pass <a class="autorefs autorefs-internal" title="            Canvas" href="../canvas/#textual_canvas.canvas.Canvas"><code>canvas_color</code></a> as a
+parameter to change this.</p>
 <p>To illustrate, here is a <code>Canvas</code> widget where no background colour is
 specified, so the canvas background and the widget background are the same:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">30x30 canvas with widget's background</label><label for="__tabbed_2_2">default_background.py</label></div>
@@ -1486,26 +1521,12 @@ background colour when we create it:</p>
 </div>
 </div>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The defaulting of the canvas background to the widget's background is
-something that only happens when the widget is mounted. If you style the
-widget's background differently later on, the canvas' background <strong>will
-not change accordingly</strong>.</p>
-</div>
 <h4 id="the-pen-colour">The pen colour</h4>
 <p>The <code>Canvas</code> widget has a "pen" colour; any time a drawing operation is
 performed, if no colour is given to the method, the "pen" colour is used. By
 default that colour is taken from the
 <a href="https://textual.textualize.io/styles/color/"><code>color</code></a> styling of the
 widget.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The defaulting of the pen colour to the widget's colour is
-something that only happens when the widget is mounted. If you style the
-widget's <code>color</code> differently later on, the canvas' pen colour <strong>will
-not change accordingly</strong>.</p>
-</div>
 <h2 id="drawing-on-the-canvas">Drawing on the canvas</h2>
 <p>The canvas widget provides a number of methods for drawing on it.</p>
 <div class="admonition note">
@@ -2641,6 +2662,384 @@ circle on the canvas. For example:</p>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">DrawCircleApp</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="clearing-a-single-pixel">Clearing a single pixel</h3>
+<p>Use <a class="autorefs autorefs-internal" title="            clear_pixel" href="../canvas/#textual_canvas.canvas.Canvas.clear_pixel"><code>clear_pixel</code></a> to set a pixel's
+colour to the canvas' colour. For example:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">Clearing a single pixel</label><label for="__tabbed_10_2">clear_pixel.py</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><svg class="rich-terminal" viewBox="0 0 994 635.5999999999999" xmlns="http://www.w3.org/2000/svg">
+    <!-- Generated with Rich https://www.textualize.io -->
+    <style>
+
+    @font-face {
+        font-family: "Fira Code";
+        src: local("FiraCode-Regular"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff2/FiraCode-Regular.woff2") format("woff2"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Regular.woff") format("woff");
+        font-style: normal;
+        font-weight: 400;
+    }
+    @font-face {
+        font-family: "Fira Code";
+        src: local("FiraCode-Bold"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff2/FiraCode-Bold.woff2") format("woff2"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Bold.woff") format("woff");
+        font-style: bold;
+        font-weight: 700;
+    }
+
+    .terminal-310252411-matrix {
+        font-family: Fira Code, monospace;
+        font-size: 20px;
+        line-height: 24.4px;
+        font-variant-east-asian: full-width;
+    }
+
+    .terminal-310252411-title {
+        font-size: 18px;
+        font-weight: bold;
+        font-family: arial;
+    }
+
+    .terminal-310252411-r1 { fill: #6495ed }
+.terminal-310252411-r2 { fill: #c5c8c6 }
+    </style>
+
+    <defs>
+    <clipPath id="terminal-310252411-clip-terminal">
+      <rect x="0" y="0" width="975.0" height="584.5999999999999" />
+    </clipPath>
+    <clipPath id="terminal-310252411-line-0">
+    <rect x="0" y="1.5" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-310252411-line-1">
+    <rect x="0" y="25.9" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-310252411-line-2">
+    <rect x="0" y="50.3" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-310252411-line-3">
+    <rect x="0" y="74.7" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-310252411-line-4">
+    <rect x="0" y="99.1" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-310252411-line-5">
+    <rect x="0" y="123.5" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-310252411-line-6">
+    <rect x="0" y="147.9" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-310252411-line-7">
+    <rect x="0" y="172.3" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-310252411-line-8">
+    <rect x="0" y="196.7" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-310252411-line-9">
+    <rect x="0" y="221.1" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-310252411-line-10">
+    <rect x="0" y="245.5" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-310252411-line-11">
+    <rect x="0" y="269.9" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-310252411-line-12">
+    <rect x="0" y="294.3" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-310252411-line-13">
+    <rect x="0" y="318.7" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-310252411-line-14">
+    <rect x="0" y="343.1" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-310252411-line-15">
+    <rect x="0" y="367.5" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-310252411-line-16">
+    <rect x="0" y="391.9" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-310252411-line-17">
+    <rect x="0" y="416.3" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-310252411-line-18">
+    <rect x="0" y="440.7" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-310252411-line-19">
+    <rect x="0" y="465.1" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-310252411-line-20">
+    <rect x="0" y="489.5" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-310252411-line-21">
+    <rect x="0" y="513.9" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-310252411-line-22">
+    <rect x="0" y="538.3" width="976" height="24.65"/>
+            </clipPath>
+    </defs>
+
+    <rect fill="#292929" stroke="rgba(255,255,255,0.35)" stroke-width="1" x="1" y="1" width="992" height="633.6" rx="8"/><text class="terminal-310252411-title" fill="#c5c8c6" text-anchor="middle" x="496" y="27">ClearPixelApp</text>
+            <g transform="translate(26,22)">
+            <circle cx="0" cy="0" r="7" fill="#ff5f57"/>
+            <circle cx="22" cy="0" r="7" fill="#febc2e"/>
+            <circle cx="44" cy="0" r="7" fill="#28c840"/>
+            </g>
+        
+    <g transform="translate(9, 41)" clip-path="url(#terminal-310252411-clip-terminal)">
+    <rect fill="#6495ed" x="0" y="1.5" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="1.5" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="25.9" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="25.9" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="50.3" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="50.3" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="74.7" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="74.7" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="99.1" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="99.1" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="123.5" width="122" height="24.65" shape-rendering="crispEdges"/><rect fill="#0000ff" x="122" y="123.5" width="24.4" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="146.4" y="123.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#0000ff" x="158.6" y="123.5" width="36.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="195.2" y="123.5" width="170.8" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="123.5" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="147.9" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="147.9" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="172.3" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="172.3" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="196.7" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="196.7" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="221.1" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="221.1" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="245.5" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="245.5" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="269.9" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="269.9" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="294.3" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="294.3" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="318.7" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="318.7" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="343.1" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="343.1" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="0" y="367.5" width="976" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="0" y="391.9" width="976" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="0" y="416.3" width="976" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="0" y="440.7" width="976" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="0" y="465.1" width="976" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="0" y="489.5" width="976" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="0" y="513.9" width="976" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="0" y="538.3" width="976" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="0" y="562.7" width="976" height="24.65" shape-rendering="crispEdges"/>
+    <g class="terminal-310252411-matrix">
+    <text class="terminal-310252411-r1" x="0" y="20" textLength="366" clip-path="url(#terminal-310252411-line-0)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-310252411-r2" x="976" y="20" textLength="12.2" clip-path="url(#terminal-310252411-line-0)">
+</text><text class="terminal-310252411-r1" x="0" y="44.4" textLength="366" clip-path="url(#terminal-310252411-line-1)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-310252411-r2" x="976" y="44.4" textLength="12.2" clip-path="url(#terminal-310252411-line-1)">
+</text><text class="terminal-310252411-r1" x="0" y="68.8" textLength="366" clip-path="url(#terminal-310252411-line-2)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-310252411-r2" x="976" y="68.8" textLength="12.2" clip-path="url(#terminal-310252411-line-2)">
+</text><text class="terminal-310252411-r1" x="0" y="93.2" textLength="366" clip-path="url(#terminal-310252411-line-3)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-310252411-r2" x="976" y="93.2" textLength="12.2" clip-path="url(#terminal-310252411-line-3)">
+</text><text class="terminal-310252411-r1" x="0" y="117.6" textLength="366" clip-path="url(#terminal-310252411-line-4)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-310252411-r2" x="976" y="117.6" textLength="12.2" clip-path="url(#terminal-310252411-line-4)">
+</text><text class="terminal-310252411-r1" x="0" y="142" textLength="122" clip-path="url(#terminal-310252411-line-5)">▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-310252411-r1" x="122" y="142" textLength="24.4" clip-path="url(#terminal-310252411-line-5)">▄▄</text><text class="terminal-310252411-r1" x="146.4" y="142" textLength="12.2" clip-path="url(#terminal-310252411-line-5)">▄</text><text class="terminal-310252411-r1" x="158.6" y="142" textLength="36.6" clip-path="url(#terminal-310252411-line-5)">▄▄▄</text><text class="terminal-310252411-r1" x="195.2" y="142" textLength="170.8" clip-path="url(#terminal-310252411-line-5)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-310252411-r2" x="976" y="142" textLength="12.2" clip-path="url(#terminal-310252411-line-5)">
+</text><text class="terminal-310252411-r1" x="0" y="166.4" textLength="366" clip-path="url(#terminal-310252411-line-6)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-310252411-r2" x="976" y="166.4" textLength="12.2" clip-path="url(#terminal-310252411-line-6)">
+</text><text class="terminal-310252411-r1" x="0" y="190.8" textLength="366" clip-path="url(#terminal-310252411-line-7)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-310252411-r2" x="976" y="190.8" textLength="12.2" clip-path="url(#terminal-310252411-line-7)">
+</text><text class="terminal-310252411-r1" x="0" y="215.2" textLength="366" clip-path="url(#terminal-310252411-line-8)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-310252411-r2" x="976" y="215.2" textLength="12.2" clip-path="url(#terminal-310252411-line-8)">
+</text><text class="terminal-310252411-r1" x="0" y="239.6" textLength="366" clip-path="url(#terminal-310252411-line-9)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-310252411-r2" x="976" y="239.6" textLength="12.2" clip-path="url(#terminal-310252411-line-9)">
+</text><text class="terminal-310252411-r1" x="0" y="264" textLength="366" clip-path="url(#terminal-310252411-line-10)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-310252411-r2" x="976" y="264" textLength="12.2" clip-path="url(#terminal-310252411-line-10)">
+</text><text class="terminal-310252411-r1" x="0" y="288.4" textLength="366" clip-path="url(#terminal-310252411-line-11)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-310252411-r2" x="976" y="288.4" textLength="12.2" clip-path="url(#terminal-310252411-line-11)">
+</text><text class="terminal-310252411-r1" x="0" y="312.8" textLength="366" clip-path="url(#terminal-310252411-line-12)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-310252411-r2" x="976" y="312.8" textLength="12.2" clip-path="url(#terminal-310252411-line-12)">
+</text><text class="terminal-310252411-r1" x="0" y="337.2" textLength="366" clip-path="url(#terminal-310252411-line-13)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-310252411-r2" x="976" y="337.2" textLength="12.2" clip-path="url(#terminal-310252411-line-13)">
+</text><text class="terminal-310252411-r1" x="0" y="361.6" textLength="366" clip-path="url(#terminal-310252411-line-14)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-310252411-r2" x="976" y="361.6" textLength="12.2" clip-path="url(#terminal-310252411-line-14)">
+</text><text class="terminal-310252411-r2" x="976" y="386" textLength="12.2" clip-path="url(#terminal-310252411-line-15)">
+</text><text class="terminal-310252411-r2" x="976" y="410.4" textLength="12.2" clip-path="url(#terminal-310252411-line-16)">
+</text><text class="terminal-310252411-r2" x="976" y="434.8" textLength="12.2" clip-path="url(#terminal-310252411-line-17)">
+</text><text class="terminal-310252411-r2" x="976" y="459.2" textLength="12.2" clip-path="url(#terminal-310252411-line-18)">
+</text><text class="terminal-310252411-r2" x="976" y="483.6" textLength="12.2" clip-path="url(#terminal-310252411-line-19)">
+</text><text class="terminal-310252411-r2" x="976" y="508" textLength="12.2" clip-path="url(#terminal-310252411-line-20)">
+</text><text class="terminal-310252411-r2" x="976" y="532.4" textLength="12.2" clip-path="url(#terminal-310252411-line-21)">
+</text><text class="terminal-310252411-r2" x="976" y="556.8" textLength="12.2" clip-path="url(#terminal-310252411-line-22)">
+</text>
+    </g>
+    </g>
+</svg>
+</p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">textual.app</span><span class="w"> </span><span class="kn">import</span> <span class="n">App</span><span class="p">,</span> <span class="n">ComposeResult</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">textual.color</span><span class="w"> </span><span class="kn">import</span> <span class="n">Color</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">textual_canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">Canvas</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ClearPixelApp</span><span class="p">(</span><span class="n">App</span><span class="p">[</span><span class="kc">None</span><span class="p">]):</span>
+    <span class="n">CSS</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    Canvas {</span>
+<span class="s2">        background: $panel;</span>
+<span class="s2">        color: blue;</span>
+<span class="s2">    }</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">compose</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ComposeResult</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">Canvas</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">Color</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;cornflowerblue&quot;</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_mount</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">query_one</span><span class="p">(</span><span class="n">Canvas</span><span class="p">)</span><span class="o">.</span><span class="n">draw_line</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">clear_pixel</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">ClearPixelApp</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="clearing-multiple-pixels">Clearing multiple pixels</h3>
+<p>Use <a class="autorefs autorefs-internal" title="            clear_pixels" href="../canvas/#textual_canvas.canvas.Canvas.clear_pixels"><code>clear_pixels</code></a> to set the colour
+of multiple pixels to the canvas' colour. For example:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">Clearing multiple pixels</label><label for="__tabbed_11_2">clear_pixels.py</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><svg class="rich-terminal" viewBox="0 0 994 635.5999999999999" xmlns="http://www.w3.org/2000/svg">
+    <!-- Generated with Rich https://www.textualize.io -->
+    <style>
+
+    @font-face {
+        font-family: "Fira Code";
+        src: local("FiraCode-Regular"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff2/FiraCode-Regular.woff2") format("woff2"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Regular.woff") format("woff");
+        font-style: normal;
+        font-weight: 400;
+    }
+    @font-face {
+        font-family: "Fira Code";
+        src: local("FiraCode-Bold"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff2/FiraCode-Bold.woff2") format("woff2"),
+                url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Bold.woff") format("woff");
+        font-style: bold;
+        font-weight: 700;
+    }
+
+    .terminal-1297228353-matrix {
+        font-family: Fira Code, monospace;
+        font-size: 20px;
+        line-height: 24.4px;
+        font-variant-east-asian: full-width;
+    }
+
+    .terminal-1297228353-title {
+        font-size: 18px;
+        font-weight: bold;
+        font-family: arial;
+    }
+
+    .terminal-1297228353-r1 { fill: #6495ed }
+.terminal-1297228353-r2 { fill: #c5c8c6 }
+    </style>
+
+    <defs>
+    <clipPath id="terminal-1297228353-clip-terminal">
+      <rect x="0" y="0" width="975.0" height="584.5999999999999" />
+    </clipPath>
+    <clipPath id="terminal-1297228353-line-0">
+    <rect x="0" y="1.5" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1297228353-line-1">
+    <rect x="0" y="25.9" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1297228353-line-2">
+    <rect x="0" y="50.3" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1297228353-line-3">
+    <rect x="0" y="74.7" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1297228353-line-4">
+    <rect x="0" y="99.1" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1297228353-line-5">
+    <rect x="0" y="123.5" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1297228353-line-6">
+    <rect x="0" y="147.9" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1297228353-line-7">
+    <rect x="0" y="172.3" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1297228353-line-8">
+    <rect x="0" y="196.7" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1297228353-line-9">
+    <rect x="0" y="221.1" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1297228353-line-10">
+    <rect x="0" y="245.5" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1297228353-line-11">
+    <rect x="0" y="269.9" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1297228353-line-12">
+    <rect x="0" y="294.3" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1297228353-line-13">
+    <rect x="0" y="318.7" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1297228353-line-14">
+    <rect x="0" y="343.1" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1297228353-line-15">
+    <rect x="0" y="367.5" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1297228353-line-16">
+    <rect x="0" y="391.9" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1297228353-line-17">
+    <rect x="0" y="416.3" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1297228353-line-18">
+    <rect x="0" y="440.7" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1297228353-line-19">
+    <rect x="0" y="465.1" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1297228353-line-20">
+    <rect x="0" y="489.5" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1297228353-line-21">
+    <rect x="0" y="513.9" width="976" height="24.65"/>
+            </clipPath>
+<clipPath id="terminal-1297228353-line-22">
+    <rect x="0" y="538.3" width="976" height="24.65"/>
+            </clipPath>
+    </defs>
+
+    <rect fill="#292929" stroke="rgba(255,255,255,0.35)" stroke-width="1" x="1" y="1" width="992" height="633.6" rx="8"/><text class="terminal-1297228353-title" fill="#c5c8c6" text-anchor="middle" x="496" y="27">ClearPixelsApp</text>
+            <g transform="translate(26,22)">
+            <circle cx="0" cy="0" r="7" fill="#ff5f57"/>
+            <circle cx="22" cy="0" r="7" fill="#febc2e"/>
+            <circle cx="44" cy="0" r="7" fill="#28c840"/>
+            </g>
+        
+    <g transform="translate(9, 41)" clip-path="url(#terminal-1297228353-clip-terminal)">
+    <rect fill="#6495ed" x="0" y="1.5" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="1.5" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="25.9" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="25.9" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="50.3" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="50.3" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="74.7" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="74.7" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="99.1" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="99.1" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="123.5" width="122" height="24.65" shape-rendering="crispEdges"/><rect fill="#0000ff" x="122" y="123.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="134.2" y="123.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#0000ff" x="146.4" y="123.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="158.6" y="123.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#0000ff" x="170.8" y="123.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="183" y="123.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#0000ff" x="195.2" y="123.5" width="12.2" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="207.4" y="123.5" width="158.6" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="123.5" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="147.9" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="147.9" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="172.3" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="172.3" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="196.7" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="196.7" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="221.1" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="221.1" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="245.5" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="245.5" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="269.9" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="269.9" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="294.3" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="294.3" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="318.7" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="318.7" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#6495ed" x="0" y="343.1" width="366" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="366" y="343.1" width="610" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="0" y="367.5" width="976" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="0" y="391.9" width="976" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="0" y="416.3" width="976" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="0" y="440.7" width="976" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="0" y="465.1" width="976" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="0" y="489.5" width="976" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="0" y="513.9" width="976" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="0" y="538.3" width="976" height="24.65" shape-rendering="crispEdges"/><rect fill="#242f38" x="0" y="562.7" width="976" height="24.65" shape-rendering="crispEdges"/>
+    <g class="terminal-1297228353-matrix">
+    <text class="terminal-1297228353-r1" x="0" y="20" textLength="366" clip-path="url(#terminal-1297228353-line-0)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-1297228353-r2" x="976" y="20" textLength="12.2" clip-path="url(#terminal-1297228353-line-0)">
+</text><text class="terminal-1297228353-r1" x="0" y="44.4" textLength="366" clip-path="url(#terminal-1297228353-line-1)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-1297228353-r2" x="976" y="44.4" textLength="12.2" clip-path="url(#terminal-1297228353-line-1)">
+</text><text class="terminal-1297228353-r1" x="0" y="68.8" textLength="366" clip-path="url(#terminal-1297228353-line-2)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-1297228353-r2" x="976" y="68.8" textLength="12.2" clip-path="url(#terminal-1297228353-line-2)">
+</text><text class="terminal-1297228353-r1" x="0" y="93.2" textLength="366" clip-path="url(#terminal-1297228353-line-3)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-1297228353-r2" x="976" y="93.2" textLength="12.2" clip-path="url(#terminal-1297228353-line-3)">
+</text><text class="terminal-1297228353-r1" x="0" y="117.6" textLength="366" clip-path="url(#terminal-1297228353-line-4)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-1297228353-r2" x="976" y="117.6" textLength="12.2" clip-path="url(#terminal-1297228353-line-4)">
+</text><text class="terminal-1297228353-r1" x="0" y="142" textLength="122" clip-path="url(#terminal-1297228353-line-5)">▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-1297228353-r1" x="122" y="142" textLength="12.2" clip-path="url(#terminal-1297228353-line-5)">▄</text><text class="terminal-1297228353-r1" x="134.2" y="142" textLength="12.2" clip-path="url(#terminal-1297228353-line-5)">▄</text><text class="terminal-1297228353-r1" x="146.4" y="142" textLength="12.2" clip-path="url(#terminal-1297228353-line-5)">▄</text><text class="terminal-1297228353-r1" x="158.6" y="142" textLength="12.2" clip-path="url(#terminal-1297228353-line-5)">▄</text><text class="terminal-1297228353-r1" x="170.8" y="142" textLength="12.2" clip-path="url(#terminal-1297228353-line-5)">▄</text><text class="terminal-1297228353-r1" x="183" y="142" textLength="12.2" clip-path="url(#terminal-1297228353-line-5)">▄</text><text class="terminal-1297228353-r1" x="195.2" y="142" textLength="12.2" clip-path="url(#terminal-1297228353-line-5)">▄</text><text class="terminal-1297228353-r1" x="207.4" y="142" textLength="158.6" clip-path="url(#terminal-1297228353-line-5)">▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-1297228353-r2" x="976" y="142" textLength="12.2" clip-path="url(#terminal-1297228353-line-5)">
+</text><text class="terminal-1297228353-r1" x="0" y="166.4" textLength="366" clip-path="url(#terminal-1297228353-line-6)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-1297228353-r2" x="976" y="166.4" textLength="12.2" clip-path="url(#terminal-1297228353-line-6)">
+</text><text class="terminal-1297228353-r1" x="0" y="190.8" textLength="366" clip-path="url(#terminal-1297228353-line-7)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-1297228353-r2" x="976" y="190.8" textLength="12.2" clip-path="url(#terminal-1297228353-line-7)">
+</text><text class="terminal-1297228353-r1" x="0" y="215.2" textLength="366" clip-path="url(#terminal-1297228353-line-8)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-1297228353-r2" x="976" y="215.2" textLength="12.2" clip-path="url(#terminal-1297228353-line-8)">
+</text><text class="terminal-1297228353-r1" x="0" y="239.6" textLength="366" clip-path="url(#terminal-1297228353-line-9)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-1297228353-r2" x="976" y="239.6" textLength="12.2" clip-path="url(#terminal-1297228353-line-9)">
+</text><text class="terminal-1297228353-r1" x="0" y="264" textLength="366" clip-path="url(#terminal-1297228353-line-10)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-1297228353-r2" x="976" y="264" textLength="12.2" clip-path="url(#terminal-1297228353-line-10)">
+</text><text class="terminal-1297228353-r1" x="0" y="288.4" textLength="366" clip-path="url(#terminal-1297228353-line-11)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-1297228353-r2" x="976" y="288.4" textLength="12.2" clip-path="url(#terminal-1297228353-line-11)">
+</text><text class="terminal-1297228353-r1" x="0" y="312.8" textLength="366" clip-path="url(#terminal-1297228353-line-12)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-1297228353-r2" x="976" y="312.8" textLength="12.2" clip-path="url(#terminal-1297228353-line-12)">
+</text><text class="terminal-1297228353-r1" x="0" y="337.2" textLength="366" clip-path="url(#terminal-1297228353-line-13)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-1297228353-r2" x="976" y="337.2" textLength="12.2" clip-path="url(#terminal-1297228353-line-13)">
+</text><text class="terminal-1297228353-r1" x="0" y="361.6" textLength="366" clip-path="url(#terminal-1297228353-line-14)">▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</text><text class="terminal-1297228353-r2" x="976" y="361.6" textLength="12.2" clip-path="url(#terminal-1297228353-line-14)">
+</text><text class="terminal-1297228353-r2" x="976" y="386" textLength="12.2" clip-path="url(#terminal-1297228353-line-15)">
+</text><text class="terminal-1297228353-r2" x="976" y="410.4" textLength="12.2" clip-path="url(#terminal-1297228353-line-16)">
+</text><text class="terminal-1297228353-r2" x="976" y="434.8" textLength="12.2" clip-path="url(#terminal-1297228353-line-17)">
+</text><text class="terminal-1297228353-r2" x="976" y="459.2" textLength="12.2" clip-path="url(#terminal-1297228353-line-18)">
+</text><text class="terminal-1297228353-r2" x="976" y="483.6" textLength="12.2" clip-path="url(#terminal-1297228353-line-19)">
+</text><text class="terminal-1297228353-r2" x="976" y="508" textLength="12.2" clip-path="url(#terminal-1297228353-line-20)">
+</text><text class="terminal-1297228353-r2" x="976" y="532.4" textLength="12.2" clip-path="url(#terminal-1297228353-line-21)">
+</text><text class="terminal-1297228353-r2" x="976" y="556.8" textLength="12.2" clip-path="url(#terminal-1297228353-line-22)">
+</text>
+    </g>
+    </g>
+</svg>
+</p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">textual.app</span><span class="w"> </span><span class="kn">import</span> <span class="n">App</span><span class="p">,</span> <span class="n">ComposeResult</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">textual.color</span><span class="w"> </span><span class="kn">import</span> <span class="n">Color</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">textual_canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">Canvas</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ClearPixelsApp</span><span class="p">(</span><span class="n">App</span><span class="p">[</span><span class="kc">None</span><span class="p">]):</span>
+    <span class="n">CSS</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    Canvas {</span>
+<span class="s2">        background: $panel;</span>
+<span class="s2">        color: blue;</span>
+<span class="s2">    }</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">compose</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ComposeResult</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">Canvas</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">Color</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;cornflowerblue&quot;</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_mount</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">query_one</span><span class="p">(</span><span class="n">Canvas</span><span class="p">)</span><span class="o">.</span><span class="n">draw_line</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">clear_pixels</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+                <span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+                <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">ClearPixelsApp</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </code></pre></div>
 </div>
 </div>
