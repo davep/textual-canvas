@@ -199,6 +199,28 @@ class Canvas(ScrollView, can_focus=True):
         self.refresh()
         return self
 
+    def clear_pixels(self, locations: Iterable[tuple[int, int]]) -> Self:
+        """Clear the colour of a collection of pixels on the canvas.
+
+        Args:
+            locations: An iterable of tuples of x and y location.
+
+        Returns:
+            The canvas.
+
+        Raises:
+            CanvasError: If any pixel location is not within the canvas.
+
+        Note:
+            The origin of the canvas is the top left corner.
+        """
+        color = self._canvas_colour or self.styles.background
+        for x, y in locations:
+            self._pixel_check(x, y)
+            self._canvas[y][x] = color
+        self.refresh()
+        return self
+
     def set_pixel(self, x: int, y: int, color: Color | None = None) -> Self:
         """Set the colour of a specific pixel on the canvas.
 
@@ -214,6 +236,21 @@ class Canvas(ScrollView, can_focus=True):
             The origin of the canvas is the top left corner.
         """
         return self.set_pixels(((x, y),), self._pen_colour if color is None else color)
+
+    def clear_pixel(self, x: int, y: int) -> Self:
+        """Clear the colour of a specific pixel on the canvas.
+
+        Args:
+            x: The horizontal location of the pixel.
+            y: The vertical location of the pixel.
+
+        Raises:
+            CanvasError: If the pixel location is not within the canvas.
+
+        Note:
+            The origin of the canvas is the top left corner.
+        """
+        return self.clear_pixels(((x, y),))
 
     def get_pixel(self, x: int, y: int) -> Color:
         """Get the pixel at the given location.
