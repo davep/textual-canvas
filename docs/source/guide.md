@@ -222,6 +222,22 @@ colour to the canvas' colour. For example:
     --8<-- "docs/examples/clear_pixel.py"
     ```
 
+### Clearing multiple pixels
+
+Use [`clear_pixels`][textual_canvas.Canvas.clear_pixels] to set the colour
+of multiple pixels to the canvas' colour. For example:
+
+=== "Clearing multiple pixels"
+
+    ```{.textual path="docs/examples/clear_pixels.py"}
+    ```
+
+=== "clear_pixels.py"
+
+    ```python
+    --8<-- "docs/examples/clear_pixels.py"
+    ```
+
 ## Further help
 
 You can find more detailed documentation of the API [in the next
