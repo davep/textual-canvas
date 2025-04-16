@@ -671,6 +671,24 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#textual_canvas.canvas.Canvas.clear(width)" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;width
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#textual_canvas.canvas.Canvas.clear(height)" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;height
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1329,6 +1347,24 @@
   <a href="#textual_canvas.canvas.Canvas.clear(color)" class="md-nav__link">
     <span class="md-ellipsis">
       <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;color
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#textual_canvas.canvas.Canvas.clear(width)" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;width
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#textual_canvas.canvas.Canvas.clear(height)" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;height
     </span>
   </a>
   
@@ -2122,7 +2158,7 @@ force a refresh.</p>
 
 
 </h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">clear</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="color (textual_canvas.canvas.Canvas.clear(color))" href="#textual_canvas.canvas.Canvas.clear(color)">color</a></span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">clear</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="color (textual_canvas.canvas.Canvas.clear(color))" href="#textual_canvas.canvas.Canvas.clear(color)">color</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="width (textual_canvas.canvas.Canvas.clear(width))" href="#textual_canvas.canvas.Canvas.clear(width)">width</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="height (textual_canvas.canvas.Canvas.clear(height))" href="#textual_canvas.canvas.Canvas.clear(height)">height</a></span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2157,6 +2193,38 @@ force a refresh.</p>
                   <code>None</code>
             </td>
           </tr>
+          <tr class="doc-section-item">
+            <td>
+<h4 id="textual_canvas.canvas.Canvas.clear(width)" class="doc doc-heading doc-heading-parameter">                  <code>width</code>
+</h4>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional width for the canvas.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+<h4 id="textual_canvas.canvas.Canvas.clear(height)" class="doc doc-heading doc-heading-parameter">                  <code>height</code>
+</h4>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional height for the canvas.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
       </tbody>
     </table>
 
@@ -2182,17 +2250,15 @@ force a refresh.</p>
           </tr>
       </tbody>
     </table>
+        <p>If the color isn't provided, then the color used when first making
+the canvas is used, this in turn becomes the new default color (and
+will then be used for subsequent clears, unless another color is
+provided).</p>
+<p>Explicitly setting the colour to <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/constants.html#None"><code>None</code></a> will set the canvas
+colour to whatever the widget's <code>background</code> colour is.</p>
+<p>If <code>width</code> or <code>height</code> are omitted then the current value for those
+dimensions will be used.</p>
 
-
-<details class="note" open>
-  <summary>Note</summary>
-  <p>If the color isn't provided, then the color used when first
-making the canvas is used, this in turn becomes the new default
-color (and will then be used for subsequent clears, unless
-another color is provided).</p>
-<p>Explicitly setting the colour to <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/constants.html#None"><code>None</code></a> will set the
-canvas colour to whatever the widget's <code>background</code> colour is.</p>
-</details>
 
     </div>
 
