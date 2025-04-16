@@ -1,8 +1,8 @@
 # textual-canvas ChangeLog
 
-## Unreleased
+## v0.4.0
 
-**Released: WiP**
+**Released: 2025-04-16**
 
 - Added `width` and `height` parameters to `Canvas.clear`.
   ([#17](https://github.com/davep/textual-canvas/pull/17))
