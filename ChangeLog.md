@@ -1,5 +1,11 @@
 # textual-canvas ChangeLog
 
+## Unreleased
+
+**Released: WiP**
+
+- Added `width` and `height` parameters to `Canvas.clear`.
+
 ## v0.3.0
 
 **Released: 2025-04-15**

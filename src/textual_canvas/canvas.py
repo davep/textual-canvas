@@ -82,11 +82,11 @@ class Canvas(ScrollView, can_focus=True):
         """The background colour of the canvas itself."""
         self._pen_colour = pen_color
         """The default pen colour, used when drawing pixels."""
-        self._canvas: list[list[Color | None]] = self._blank_canvas
+        self._canvas: list[list[Color | None]] = []
         """The canvas itself."""
         self._refreshing = True
-        """Are we refreshing by default?"""
-        self.virtual_size = Size(width, ceil(height / 2))
+        """The current default refresh state."""
+        self.clear()
 
     @property
     def _blank_canvas(self) -> list[list[Color | None]]:
@@ -169,24 +169,36 @@ class Canvas(ScrollView, can_focus=True):
                 f"x={x}, x={y} is not within 0, 0, {self._width}, {self._height}"
             )
 
-    def clear(self, color: Color | None = None) -> Self:
+    def clear(
+        self,
+        color: Color | None = None,
+        width: int | None = None,
+        height: int | None = None,
+    ) -> Self:
         """Clear the canvas.
 
         Args:
             color: Optional default colour for the canvas.
+            width: Optional width for the canvas.
+            height: Optional height for the canvas.
 
         Returns:
             The canvas.
 
-        Note:
-            If the color isn't provided, then the color used when first
-            making the canvas is used, this in turn becomes the new default
-            color (and will then be used for subsequent clears, unless
-            another color is provided).
+        If the color isn't provided, then the color used when first making
+        the canvas is used, this in turn becomes the new default color (and
+        will then be used for subsequent clears, unless another color is
+        provided).
 
-            Explicitly setting the colour to [`None`][None] will set the
-            canvas colour to whatever the widget's `background` colour is.
+        Explicitly setting the colour to [`None`][None] will set the canvas
+        colour to whatever the widget's `background` colour is.
+
+        If `width` or `height` are omitted then the current value for those
+        dimensions will be used.
         """
+        self._width = self._width if width is None else width
+        self._height = self._height if height is None else height
+        self.virtual_size = Size(self._width, ceil(self._height / 2))
         self._canvas_colour = color or self._canvas_colour
         self._canvas = self._blank_canvas
         return self.refresh()
