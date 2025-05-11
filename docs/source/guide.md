@@ -48,8 +48,8 @@ There are three main colours to consider when working with `Canvas`:
 
 #### Widget vs canvas background
 
-The difference ion the first two items listed above might not seem obvious
-to start with. The `Canvas` widget, like all other Textual widgets, has a
+The difference in the first two items listed above might not seem obvious to
+start with. The `Canvas` widget, like all other Textual widgets, has a
 [background](https://textual.textualize.io/styles/background/); you can
 style this with CSS just as you always would. But the canvas itself -- the
 area that you'll be drawing in inside the widget -- can have its own
