@@ -14,11 +14,11 @@ and then can be [mounted][textual.screen.Screen.mount] or
 
 ### Sizing
 
-When [creating it][textual_canvas.canvas.Canvas] you provide a
-width and a height of the canvas in "pixels" Note that these values are the
-dimensions of the canvas that the "pixels" are drawn on, not the size of the
-widget; the widget itself is sized using all the normal Textual styling and
-geometry rules.
+When [creating it][textual_canvas.canvas.Canvas] you provide a width and a
+height of the canvas in "pixels". Note that these values are the dimensions
+of the canvas that the "pixels" are drawn on, not the size of the widget;
+the widget itself is sized using all the [normal Textual styling and
+geometry rules](https://textual.textualize.io/guide/layout/).
 
 To illustrate, here are two `Canvas` widgets, one where the widget is bigger
 than the canvas, and one where the canvas is bigger than the widget:
@@ -48,8 +48,8 @@ There are three main colours to consider when working with `Canvas`:
 
 #### Widget vs canvas background
 
-The difference ion the first two items listed above might not seem obvious
-to start with. The `Canvas` widget, like all other Textual widgets, has a
+The difference in the first two items listed above might not seem obvious to
+start with. The `Canvas` widget, like all other Textual widgets, has a
 [background](https://textual.textualize.io/styles/background/); you can
 style this with CSS just as you always would. But the canvas itself -- the
 area that you'll be drawing in inside the widget -- can have its own
