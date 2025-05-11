@@ -17,8 +17,8 @@ and then can be [mounted][textual.screen.Screen.mount] or
 When [creating it][textual_canvas.canvas.Canvas] you provide a width and a
 height of the canvas in "pixels". Note that these values are the dimensions
 of the canvas that the "pixels" are drawn on, not the size of the widget;
-the widget itself is sized using all the normal Textual styling and geometry
-rules.
+the widget itself is sized using all the [normal Textual styling and
+geometry rules](https://textual.textualize.io/guide/layout/).
 
 To illustrate, here are two `Canvas` widgets, one where the widget is bigger
 than the canvas, and one where the canvas is bigger than the widget:
