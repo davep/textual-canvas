@@ -940,11 +940,11 @@ Textual widget; it is imported as:</p>
 <p>and then can be <a class="autorefs autorefs-external" href="https://textual.textualize.io/api/widget/#textual.widget.Widget.mount">mounted</a> or
 <a class="autorefs autorefs-external" href="https://textual.textualize.io/api/widget/#textual.widget.Widget.compose">composed</a> like any other widget.</p>
 <h3 id="sizing">Sizing</h3>
-<p>When <a class="autorefs autorefs-internal" title="            Canvas" href="../canvas/#textual_canvas.canvas.Canvas">creating it</a> you provide a
-width and a height of the canvas in "pixels" Note that these values are the
-dimensions of the canvas that the "pixels" are drawn on, not the size of the
-widget; the widget itself is sized using all the normal Textual styling and
-geometry rules.</p>
+<p>When <a class="autorefs autorefs-internal" title="            Canvas" href="../canvas/#textual_canvas.canvas.Canvas">creating it</a> you provide a width and a
+height of the canvas in "pixels". Note that these values are the dimensions
+of the canvas that the "pixels" are drawn on, not the size of the widget;
+the widget itself is sized using all the <a href="https://textual.textualize.io/guide/layout/">normal Textual styling and
+geometry rules</a>.</p>
 <p>To illustrate, here are two <code>Canvas</code> widgets, one where the widget is bigger
 than the canvas, and one where the canvas is bigger than the widget:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Widget vs canvas sizing</label><label for="__tabbed_1_2">sizing.py</label></div>
@@ -1138,8 +1138,8 @@ has scrollbars.</p>
 <li>The current "pen" colour.</li>
 </ul>
 <h4 id="widget-vs-canvas-background">Widget vs canvas background</h4>
-<p>The difference ion the first two items listed above might not seem obvious
-to start with. The <code>Canvas</code> widget, like all other Textual widgets, has a
+<p>The difference in the first two items listed above might not seem obvious to
+start with. The <code>Canvas</code> widget, like all other Textual widgets, has a
 <a href="https://textual.textualize.io/styles/background/">background</a>; you can
 style this with CSS just as you always would. But the canvas itself -- the
 area that you'll be drawing in inside the widget -- can have its own
