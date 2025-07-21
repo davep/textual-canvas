@@ -117,7 +117,8 @@ class Canvas(ScrollView, can_focus=True):
         will call [`refresh`][textual.widget.Widget.refresh] once it has
         updated all of the pixels it has been given. Sometimes you may want
         to perform a number of draw operations and having `refresh` called
-        between each one would be inefficient given you've not drawing.
+        between each one would be inefficient given you've not finished
+        drawing yet.
 
         Use this context manager to batch up your drawing operations.
 
