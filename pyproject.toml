@@ -43,12 +43,10 @@ Issues = "https://github.com/davep/textual-canvas/issues"
 Discussions = "https://github.com/davep/textual-canvas/discussions"
 
 [build-system]
-# https://github.com/astral-sh/rye/issues/1446
-requires = ["hatchling==1.26.3", "hatch-vcs"]
-# requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["uv_build>=0.8.11,<0.9.0"]
+build-backend = "uv_build"
 
-[tool.rye]
+[tool.uv]
 managed = true
 dev-dependencies = [
     "pre-commit>=4.2.0",
@@ -57,13 +55,14 @@ dev-dependencies = [
     "codespell>=2.4.1",
     "mkdocs-material>=9.6.11",
     "mkdocstrings[python]>=0.29.1",
+    "ruff>=0.12.9",
 ]
 
-[tool.hatch.metadata]
-allow-direct-references = true
-
-[tool.hatch.build.targets.wheel]
-packages = ["src/textual_canvas"]
+[[tool.uv.index]]
+name = "testpypi"
+url = "https://test.pypi.org/simple/"
+publish-url = "https://test.pypi.org/legacy/"
+explicit = true
 
 [tool.pyright]
 venvPath="."
