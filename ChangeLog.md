@@ -5,7 +5,9 @@
 **Released: WiP**
 
 - Migrated from `rye` to `uv` for development management.
+  ([#22](https://github.com/davep/textual-canvas/pull/22))
 - Added Python 3.14 as a tested/supported Python version.
+  ([#23](https://github.com/davep/textual-canvas/pull/23))
 
 ## v0.4.0
 
