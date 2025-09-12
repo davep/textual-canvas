@@ -105,4 +105,12 @@ async def test_draw_line_outwith_canvas() -> None:
         assert canvas.get_pixel(1, 1) == SET
 
 
+##############################################################################
+async def test_draw_circle_outwith_canvas() -> None:
+    """Drawing a line outwith the canvas should cause no problems."""
+
+    async with CanvasApp().run_test() as pilot:
+        pilot.app.query_one(Canvas).draw_circle(0, 0, WIDTH * 2, SET)
+
+
 ### test_widget.py ends here
