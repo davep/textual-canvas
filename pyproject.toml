@@ -57,6 +57,8 @@ dev-dependencies = [
     "mkdocs-material>=9.6.11",
     "mkdocstrings[python]>=0.29.1",
     "ruff>=0.12.9",
+    "pytest>=8.4.2",
+    "pytest-asyncio>=1.2.0",
 ]
 
 [[tool.uv.index]]
@@ -64,6 +66,10 @@ name = "testpypi"
 url = "https://test.pypi.org/simple/"
 publish-url = "https://test.pypi.org/legacy/"
 explicit = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
 
 [tool.pyright]
 venvPath="."
