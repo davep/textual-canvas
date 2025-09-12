@@ -75,4 +75,23 @@ async def test_get_outwith_canvas() -> None:
             _ = pilot.app.query_one(Canvas).get_pixel(-1, -1)
 
 
+##############################################################################
+async def test_clear_within_canvas() -> None:
+    """Clearing a previously-set pixel within the canvas should cause no problems."""
+
+    async with CanvasApp().run_test() as pilot:
+        canvas = pilot.app.query_one(Canvas).set_pixel(1, 1, SET)
+        canvas.clear_pixel(1, 1)
+        assert canvas.get_pixel(1, 1) == UNSET
+
+
+##############################################################################
+async def test_clear_outwith_canvas() -> None:
+    """Clearing a outwith the canvas should raise an error."""
+
+    async with CanvasApp().run_test() as pilot:
+        with raises(CanvasError):
+            pilot.app.query_one(Canvas).clear_pixel(-1, -1)
+
+
 ### test_widget.py ends here
