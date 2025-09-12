@@ -64,7 +64,11 @@ stricttypecheck:	        # Perform a strict static type checks with mypy
 
 .PHONY: test
 test:				# Run the unit tests
-	$(test) -v
+	$(test) --verbose
+
+.PHONY: take-snapshots
+take-snapshots:			# Rebuild the snapshots for snapshot testing
+	$(test) --verbose --snapshot-update
 
 .PHONY: spellcheck
 spellcheck:			# Spell check the code
