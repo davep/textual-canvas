@@ -94,4 +94,15 @@ async def test_clear_outwith_canvas() -> None:
             pilot.app.query_one(Canvas).clear_pixel(-1, -1)
 
 
+##############################################################################
+async def test_draw_line_outwith_canvas() -> None:
+    """Drawing a line outwith the canvas should cause no problems."""
+
+    async with CanvasApp().run_test() as pilot:
+        canvas = pilot.app.query_one(Canvas).draw_line(
+            -WIDTH, -WIDTH, WIDTH + WIDTH, WIDTH + WIDTH, SET
+        )
+        assert canvas.get_pixel(1, 1) == SET
+
+
 ### test_widget.py ends here
