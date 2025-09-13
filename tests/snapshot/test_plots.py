@@ -46,14 +46,36 @@ def test_pixel(snap_compare: Callable[[Any], bool]) -> None:
 
 
 ##############################################################################
-def test_line(snap_compare: Callable[[Any], bool]) -> None:
+def test_horizontal_line(snap_compare: Callable[[Any], bool]) -> None:
     """Snapshot test for plotting a line."""
 
-    class LineApp(CanvasApp):
+    class HorizontalLineApp(CanvasApp):
+        def on_mount(self) -> None:
+            self.query_one(Canvas).draw_line(0, 0, 20, 0, SET)
+
+    assert snap_compare(HorizontalLineApp())
+
+
+##############################################################################
+def test_vertical_line(snap_compare: Callable[[Any], bool]) -> None:
+    """Snapshot test for plotting a line."""
+
+    class VerticalLineApp(CanvasApp):
+        def on_mount(self) -> None:
+            self.query_one(Canvas).draw_line(0, 0, 0, 20, SET)
+
+    assert snap_compare(VerticalLineApp())
+
+
+##############################################################################
+def test_diagonal_line(snap_compare: Callable[[Any], bool]) -> None:
+    """Snapshot test for plotting a line."""
+
+    class DiagonalLineApp(CanvasApp):
         def on_mount(self) -> None:
             self.query_one(Canvas).draw_line(0, 0, 20, 20, SET)
 
-    assert snap_compare(LineApp())
+    assert snap_compare(DiagonalLineApp())
 
 
 ##############################################################################
