@@ -1,13 +1,15 @@
 # textual-canvas ChangeLog
 
-## Unreleased
+## v1.0.0
 
-**Released: WiP**
+**Released: 2025-09-13**
 
 - Migrated from `rye` to `uv` for development management.
   ([#22](https://github.com/davep/textual-canvas/pull/22))
 - Added Python 3.14 as a tested/supported Python version.
   ([#23](https://github.com/davep/textual-canvas/pull/23))
+- Added unit and snapshot tests.
+  ([#25](https://github.com/davep/textual-canvas/pull/25))
 
 ## v0.4.0
 
