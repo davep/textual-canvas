@@ -60,6 +60,7 @@ dev-dependencies = [
     "pytest>=8.4.2",
     "pytest-asyncio>=1.2.0",
     "pytest-textual-snapshot>=1.1.0",
+    "pytest-cov>=7.0.0",
 ]
 
 [[tool.uv.index]]

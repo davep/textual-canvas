@@ -10,7 +10,9 @@ python   := $(run) python
 ruff     := $(run) ruff
 lint     := $(ruff) check --select I
 fmt      := $(ruff) format
-test     := $(run) pytest
+reports  := .reports
+test     := $(run) pytest --verbose --cov=$(lib) --snapshot-report=$(reports)/snapshots.html
+coverage := $(test) --cov-report html:$(reports)
 mypy     := $(run) mypy
 mkdocs   := $(run) mkdocs
 spell    := $(run) codespell
@@ -64,11 +66,16 @@ stricttypecheck:	        # Perform a strict static type checks with mypy
 
 .PHONY: test
 test:				# Run the unit tests
-	$(test) --verbose
+	$(test)
+
+.PHONY: coverage
+coverage:			# Produce a test coverage report
+	$(coverage)
+	open $(reports)/index.html
 
 .PHONY: take-snapshots
 take-snapshots:			# Rebuild the snapshots for snapshot testing
-	$(test) --verbose --snapshot-update
+	$(test) --snapshot-update
 
 .PHONY: spellcheck
 spellcheck:			# Spell check the code
