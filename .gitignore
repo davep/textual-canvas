@@ -1,6 +1,7 @@
 .venv/
 .coverage
 .coverage_report/
+.reports/
 .DS_Store
 *.egg-info/
 build/

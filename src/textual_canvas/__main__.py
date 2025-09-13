@@ -67,6 +67,6 @@ class CanvasTestApp(App[None]):
 
 
 if __name__ == "__main__":
-    CanvasTestApp().run()
+    CanvasTestApp().run()  # pragma: no cover
 
 ### __main__.py ends here

@@ -1,5 +1,6 @@
 lib      := textual_canvas
 src      := src/
+tests    := tests/
 examples := docs/examples
 run      := uv run
 sync     := uv sync
@@ -9,6 +10,9 @@ python   := $(run) python
 ruff     := $(run) ruff
 lint     := $(ruff) check --select I
 fmt      := $(ruff) format
+reports  := .reports
+test     := $(run) pytest --verbose --cov=$(lib) --snapshot-report=$(reports)/snapshots.html
+coverage := $(test) --cov-report html:$(reports)
 mypy     := $(run) mypy
 mkdocs   := $(run) mkdocs
 spell    := $(run) codespell
@@ -46,26 +50,39 @@ resetup: realclean		# Recreate the virtual environment from scratch
 # Checking/testing/linting/etc.
 .PHONY: lint
 lint:				# Check the code for linting issues
-	$(lint) $(src) $(examples)
+	$(lint) $(src) $(examples) $(tests)
 
 .PHONY: codestyle
 codestyle:			# Is the code formatted correctly?
-	$(fmt) --check $(src) $(examples)
+	$(fmt) --check $(src) $(examples) $(tests)
 
 .PHONY: typecheck
 typecheck:			# Perform static type checks with mypy
-	$(mypy) --scripts-are-modules $(src) $(examples)
+	$(mypy) --scripts-are-modules $(src) $(examples) $(tests)
 
 .PHONY: stricttypecheck
 stricttypecheck:	        # Perform a strict static type checks with mypy
-	$(mypy) --scripts-are-modules --strict $(src) $(examples)
+	$(mypy) --scripts-are-modules --strict $(src) $(examples) $(tests)
+
+.PHONY: test
+test:				# Run the unit tests
+	$(test)
+
+.PHONY: coverage
+coverage:			# Produce a test coverage report
+	$(coverage)
+	open $(reports)/index.html
+
+.PHONY: take-snapshots
+take-snapshots:			# Rebuild the snapshots for snapshot testing
+	$(test) --snapshot-update
 
 .PHONY: spellcheck
 spellcheck:			# Spell check the code
-	$(spell) *.md $(src) $(docs)
+	$(spell) *.md $(src) $(examples) $(docs) $(tests)
 
 .PHONY: checkall
-checkall: spellcheck codestyle lint stricttypecheck # Check all the things
+checkall: spellcheck codestyle lint stricttypecheck test # Check all the things
 
 ##############################################################################
 # Documentation.
@@ -111,7 +128,7 @@ delint:			# Fix linting issues.
 
 .PHONY: pep8ify
 pep8ify:			# Reformat the code to be as PEP8 as possible.
-	$(fmt) $(src) $(examples)
+	$(fmt) $(src) $(examples) $(tests)
 
 .PHONY: tidy
 tidy: delint pep8ify		# Tidy up the code, fixing lint and format issues.
