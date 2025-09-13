@@ -57,6 +57,28 @@ def test_line(snap_compare: Callable[[Any], bool]) -> None:
 
 
 ##############################################################################
+def test_tiny_line(snap_compare: Callable[[Any], bool]) -> None:
+    """Snapshot test for plotting a line."""
+
+    class TinyLineApp(CanvasApp):
+        def on_mount(self) -> None:
+            self.query_one(Canvas).draw_line(0, 0, 0, 1, SET)
+
+    assert snap_compare(TinyLineApp())
+
+
+##############################################################################
+def test_very_tiny_line(snap_compare: Callable[[Any], bool]) -> None:
+    """Snapshot test for plotting a line."""
+
+    class VeryTinyLineApp(CanvasApp):
+        def on_mount(self) -> None:
+            self.query_one(Canvas).draw_line(0, 0, 0, 0, SET)
+
+    assert snap_compare(VeryTinyLineApp())
+
+
+##############################################################################
 def test_rectangle(snap_compare: Callable[[Any], bool]) -> None:
     """Snapshot test for plotting a rectangle."""
 
