@@ -3,6 +3,14 @@
 ![Being used for textual-mandelbrot](https://raw.githubusercontent.com/davep/textual-canvas/main/img/textual-mandelbrot.png)
 *An example of `textual-canvas` being used in a Textual application*
 
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/davep/textual-canvas/code-checks.yaml)](https://github.com/davep/textual-canvas/actions)
+[![GitHub commits since latest release](https://img.shields.io/github/commits-since/davep/textual-canvas/latest)](https://github.com/davep/textual-canvas/commits/main/)
+[![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/davep/textual-canvas)](https://github.com/davep/textual-canvas/issues)
+[![GitHub Release Date](https://img.shields.io/github/release-date/davep/textual-canvas)](https://github.com/davep/textual-canvas/releases)
+[![PyPI - License](https://img.shields.io/pypi/l/textual-canvas)](https://github.com/davep/textual-canvas/blob/main/LICENSE)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/textual-canvas)](https://github.com/davep/textual-canvas/blob/main/pyproject.toml)
+[![PyPI - Version](https://img.shields.io/pypi/v/textual-canvas)](https://pypi.org/project/textual-canvas/)
+
 ## Introduction
 
 `textual-canvas` provides a simple terminal-based drawing canvas widget for
