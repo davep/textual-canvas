@@ -1,5 +1,14 @@
 # textual-canvas ChangeLog
 
+## Unreleased
+
+**Released: WiP**
+
+- Fixed a typo in message of the exception thrown when there's an attempt to
+  plot outside of the canvas.
+  ([#28](https://github.com/davep/textual-canvas/pull/28), with thanks to
+  [@dnlzrgz](https://github.com/dnlzrgz)).
+
 ## v1.0.0
 
 **Released: 2025-09-13**
