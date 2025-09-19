@@ -167,7 +167,7 @@ class Canvas(ScrollView, can_focus=True):
         """
         if self._outwith_the_canvas(x, y):
             raise CanvasError(
-                f"x={x}, x={y} is not within 0, 0, {self._width}, {self._height}"
+                f"x={x}, y={y} is not within 0, 0, {self._width}, {self._height}"
             )
 
     def clear(
