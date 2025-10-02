@@ -244,9 +244,11 @@ class Canvas(ScrollView, can_focus=True):
             The origin of the canvas is the top left corner.
         """
         color = color or self._pen_colour or self.styles.color
+        _pixel_check = self._pixel_check
+        _canvas = self._canvas
         for x, y in locations:
-            self._pixel_check(x, y)
-            self._canvas[y][x] = color
+            _pixel_check(x, y)
+            _canvas[y][x] = color
         if self._refreshing if refresh is None else refresh:
             self.refresh()
         return self
@@ -356,6 +358,8 @@ class Canvas(ScrollView, can_focus=True):
         # Taken from https://en.wikipedia.org/wiki/Bresenham's_line_algorithm#All_cases.
 
         pixels: list[tuple[int, int]] = []
+        outwith_the_canvas = self._outwith_the_canvas
+        add_pixel = pixels.append
 
         dx = abs(x1 - x0)
         sx = 1 if x0 < x1 else -1
@@ -364,8 +368,8 @@ class Canvas(ScrollView, can_focus=True):
         err = dx + dy
 
         while True:
-            if not self._outwith_the_canvas(x0, y0):
-                pixels.append((x0, y0))
+            if not outwith_the_canvas(x0, y0):
+                add_pixel((x0, y0))
             if x0 == x1 and y0 == y1:
                 break
             e2 = 2 * err
@@ -458,13 +462,14 @@ class Canvas(ScrollView, can_focus=True):
         # Taken from https://funloop.org/post/2021-03-15-bresenham-circle-drawing-algorithm.html.
 
         pixels: list[tuple[int, int]] = []
+        add_pixels = pixels.extend
 
         x = 0
         y = -radius
         f_m = 1 - radius
         d_e = 3
         d_ne = -(radius << 1) + 5
-        pixels.extend(self._circle_mirror(x, y))
+        add_pixels(self._circle_mirror(x, y))
         while x < -y:
             if f_m <= 0:
                 f_m += d_e
@@ -475,13 +480,14 @@ class Canvas(ScrollView, can_focus=True):
             d_e += 2
             d_ne += 2
             x += 1
-            pixels.extend(self._circle_mirror(x, y))
+            add_pixels(self._circle_mirror(x, y))
 
+        outwith_the_canvas = self._outwith_the_canvas
         return self.set_pixels(
             [
                 (center_x + x, center_y + y)
                 for x, y in pixels
-                if not self._outwith_the_canvas(center_x + x, center_y + y)
+                if not outwith_the_canvas(center_x + x, center_y + y)
             ],
             color,
             refresh,
@@ -555,10 +561,11 @@ class Canvas(ScrollView, can_focus=True):
         # together into the terminal line we're drawing. So let's get to it.
         # Note that in every case, if the colour we have is `None` that
         # means we're using the canvas colour.
+        segment_of = self._segment_of
         return (
             Strip(
                 [
-                    self._segment_of(
+                    segment_of(
                         top_pixels[pixel] or canvas_colour,
                         bottom_pixels[pixel] or canvas_colour,
                     )
