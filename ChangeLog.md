@@ -1,8 +1,8 @@
 # textual-canvas ChangeLog
 
-## Unreleased
+## v1.1.0
 
-**Released: WiP**
+**Released: 2025-10-02**
 
 - Fixed a typo in message of the exception thrown when there's an attempt to
   plot outside of the canvas.
