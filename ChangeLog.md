@@ -9,7 +9,7 @@
   ([#28](https://github.com/davep/textual-canvas/pull/28), with thanks to
   [@dnlzrgz](https://github.com/dnlzrgz)).
 - Reduced the number of attribute lookups that happen within various loops
-  within the code.
+  within the code. ([#31](https://github.com/davep/textual-canvas/pull/31))
 
 ## v1.0.0
 
