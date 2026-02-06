@@ -1,4 +1,4 @@
-from typing import Iterator
+from collections.abc import Iterator
 
 from textual.app import App, ComposeResult
 from textual.color import Color
