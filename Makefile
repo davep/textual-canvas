@@ -8,7 +8,7 @@ build    := uv build
 publish  := uv publish --username=__token__ --keyring-provider=subprocess
 python   := $(run) python
 ruff     := $(run) ruff
-lint     := $(ruff) check --select I
+lint     := $(ruff) check
 fmt      := $(ruff) format
 reports  := .reports
 test     := $(run) pytest --verbose --cov=$(lib) --snapshot-report=$(reports)/snapshots.html
