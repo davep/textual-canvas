@@ -6,11 +6,10 @@ from __future__ import annotations
 
 ##############################################################################
 # Python imports.
-from collections.abc import Iterable
+from collections.abc import Generator, Iterable
 from contextlib import contextmanager
 from functools import lru_cache
 from math import ceil
-from typing import Generator
 
 ##############################################################################
 # Rich imports.
