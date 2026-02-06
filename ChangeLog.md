@@ -1,5 +1,11 @@
 # textual-canvas ChangeLog
 
+## Unreleased
+
+**Released: WiP**
+
+- Dropped Python 3.9 as a supported Python version.
+
 ## v1.1.0
 
 **Released: 2025-10-02**
