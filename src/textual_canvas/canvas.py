@@ -10,6 +10,7 @@ from collections.abc import Generator, Iterable
 from contextlib import contextmanager
 from functools import lru_cache
 from math import ceil
+from typing import Final
 
 ##############################################################################
 # Rich imports.
@@ -31,6 +32,26 @@ from typing_extensions import Self
 ##############################################################################
 class CanvasError(Exception):
     """Type of errors raised by the [`Canvas`][textual_canvas.canvas.Canvas] widget."""
+
+
+##############################################################################
+_CELL: Final[str] = "\u2584"
+"""The character to use to draw two pixels in one cell in the canvas."""
+
+
+##############################################################################
+@lru_cache
+def _segment_of(top: Color, bottom: Color) -> Segment:
+    """Construct a segment to show the two colours in one cell.
+
+    Args:
+        top: The colour for the top pixel.
+        bottom: The colour for the bottom pixel.
+
+    Returns:
+        A `Segment` that will display the two pixels.
+    """
+    return Segment(_CELL, style=Style.from_color(bottom.rich_color, top.rich_color))
 
 
 ##############################################################################
@@ -493,24 +514,6 @@ class Canvas(ScrollView, can_focus=True):
             refresh,
         )
 
-    _CELL = "\u2584"
-    """The character to use to draw two pixels in one cell in the canvas."""
-
-    @lru_cache()
-    def _segment_of(self, top: Color, bottom: Color) -> Segment:
-        """Construct a segment to show the two colours in one cell.
-
-        Args:
-            top: The colour for the top pixel.
-            bottom: The colour for the bottom pixel.
-
-        Returns:
-            A `Segment` that will display the two pixels.
-        """
-        return Segment(
-            self._CELL, style=Style.from_color(bottom.rich_color, top.rich_color)
-        )
-
     def render_line(self, y: int) -> Strip:
         """Render a line in the display.
 
@@ -561,11 +564,10 @@ class Canvas(ScrollView, can_focus=True):
         # together into the terminal line we're drawing. So let's get to it.
         # Note that in every case, if the colour we have is `None` that
         # means we're using the canvas colour.
-        segment_of = self._segment_of
         return (
             Strip(
                 [
-                    segment_of(
+                    _segment_of(
                         top_pixels[pixel] or canvas_colour,
                         bottom_pixels[pixel] or canvas_colour,
                     )
