@@ -2,7 +2,7 @@
 
 ##############################################################################
 # Python imports.
-from typing import Callable
+from collections.abc import Callable
 
 ##############################################################################
 # Local imports.
